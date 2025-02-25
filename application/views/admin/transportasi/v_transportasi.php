@@ -82,6 +82,9 @@
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title">transportasi</h4>
+                    <a href="<?= base_url('index.php/Transportasi_Controller/addTransportasiForm'); ?>" class="btn btn-sm btn-primary">
+                     Add Data <i class="fa-solid fa-plus"></i>
+                    </a>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -118,14 +121,21 @@
                             <td><?= $no++; ?></td>
                             <td><?= $tr['kode'] ?></td>
                             <td><?= $tr['jumlah_kursi'] ?></td>
-                            <td>
-                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                                 keterangan
-                               </button>
-                               </td>
+                            <td><?= $tr['keterangan']; ?></td>
                             <td><?= $tr['nama_type'] ?></td>
                             <td><?= $tr['nama_petugas'] ?></td>
-                            <td><div class="btn btn-warning"><i class="bi bi-pencil"></i></div></td>
+                            <td> <!-- Tombol Edit -->
+    <a href="<?= site_url('index.php/Transportasi_Controller/editTransportasiForm/' . $tr['id_transportasi']); ?>" 
+       class="btn btn-sm btn-warning mb-2">
+        <i class="fa-solid fa-edit"></i> Edit
+    </a>
+
+                    <!-- Tombol Hapus -->
+                    <a href="<?= site_url('index.php/Transportasi_Controller/deleteDataTrans/' . $tr['id_transportasi']); ?>" 
+           class="btn btn-sm btn-danger"
+           onclick="return confirm('Yakin ingin menghapus data ini?');">
+            <i class="fa-solid fa-trash"></i> Delete
+        </a></td>
                           </tr>
                           <?php endforeach; ?>
                         </tbody>

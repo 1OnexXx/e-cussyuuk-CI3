@@ -131,6 +131,125 @@ public function updateDataType()
 
 
 
+public function addTransportasiForm()
+{
+    $this->load->model('Transportasi_model');
+    $this->load->model('TypeTransportasi_model');
+
+    $data['type_transportasi'] = $this->TypeTransportasi_model->index();
+    $data['petugas'] = $this->db->get('petugas')->result_array(); // Mengambil data petugas tanpa model
+
+    $this->load->view('template/sidebar');
+    $this->load->view('template/header');
+    $this->load->view('admin/transportasi/v_addTransportasi', $data);
+    $this->load->view('template/footer');
+}
+
+public function addTransportasi()
+{
+    $this->load->model('Transportasi_model');
+    $this->load->library('form_validation');
+
+    // Aturan validasi
+    $this->form_validation->set_rules('kode', 'Kode Transportasi', 'required|trim');
+    $this->form_validation->set_rules('jumlah_kursi', 'Jumlah Kursi', 'required|numeric|greater_than[0]');
+    $this->form_validation->set_rules('id_type_transportasi', 'Tipe Transportasi', 'required');
+    $this->form_validation->set_rules('id_petugas', 'Petugas', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keterangan', 'max_length[500]'); // Validasi keterangan
+
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('Transportasi_Controller/addTransportasiForm');
+    } else {
+        $data = [
+            'kode' => $this->input->post('kode', true),
+            'jumlah_kursi' => $this->input->post('jumlah_kursi', true),
+            'id_type_transportasi' => $this->input->post('id_type_transportasi', true),
+            'id_petugas' => $this->input->post('id_petugas', true),
+            'keterangan' => $this->input->post('keterangan', true), // Simpan keterangan
+        ];
+
+        if ($this->Transportasi_model->addData($data)) {
+            $this->session->set_flashdata('success', 'Data transportasi berhasil ditambahkan!');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menambahkan data.');
+        }
+
+        redirect('index.php/Transportasi_Controller/index');
+    }
+}
+
+public function deleteDataTrans($id)
+{
+    $this->load->model('Transportasi_model');
+    
+    $where = ['id_transportasi' => $id];
+    
+    if ($this->TypeTransportasi_model->deleteData($where, 'transportasi')) {
+        $this->session->set_flashdata('success', 'Data berhasil dihapus!');
+    } else {
+        $this->session->set_flashdata('error', 'Gagal menghapus data.');
+    }
+
+    redirect('index.php/Transportasi_Controller/index');
+}
+
+public function editTransportasiForm($id)
+{
+    $this->load->model('Transportasi_model');
+    $this->load->model('TypeTransportasi_model');
+
+    $data['transportasi'] = $this->Transportasi_model->getById($id);
+    $data['type_transportasi'] = $this->TypeTransportasi_model->index();
+    $data['petugas'] = $this->db->get('petugas')->result_array();
+
+    $this->load->view('template/sidebar');
+    $this->load->view('template/header');
+    $this->load->view('admin/transportasi/v_editTransportasi', $data);
+    $this->load->view('template/footer');
+}
+
+public function updateTransportasi()
+{
+    $this->load->model('Transportasi_model');
+    $this->load->library('form_validation');
+
+    $id = $this->input->post('id_transportasi');
+
+    // Aturan validasi
+    $this->form_validation->set_rules('kode', 'Kode Transportasi', 'required|trim');
+    $this->form_validation->set_rules('jumlah_kursi', 'Jumlah Kursi', 'required|numeric');
+    $this->form_validation->set_rules('id_type_transportasi', 'Tipe Transportasi', 'required');
+    $this->form_validation->set_rules('id_petugas', 'Petugas', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim');
+
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('error', validation_errors());
+        redirect('index.php/Transportasi_Controller/editTransportasiForm/' . $id);
+    } else {
+        $data = [
+            'kode' => $this->input->post('kode', true),
+            'jumlah_kursi' => $this->input->post('jumlah_kursi', true),
+            'id_type_transportasi' => $this->input->post('id_type_transportasi', true),
+            'id_petugas' => $this->input->post('id_petugas', true),
+            'keterangan' => $this->input->post('keterangan', true),
+        ];
+
+        if ($this->Transportasi_model->updateData($id, $data)) {
+            $this->session->set_flashdata('success', 'Data transportasi berhasil diperbarui!');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal memperbarui data.');
+        }
+
+        redirect('index.php/Transportasi_Controller/index');
+    }
+}
+
+
+
+
+
+
 
   
 

@@ -43,7 +43,22 @@ class Transportasi_model extends CI_Model {
   {
     return $this->db->insert('transportasi',$data);
   }
-
+  public function deleteData($where, $table)
+  {
+      $this->db->where($where);
+      return $this->db->delete($table);
+  }
+  public function getById($id)
+  {
+      return $this->db->get_where('transportasi', ['id_transportasi' => $id])->row_array();
+  }
+  
+  public function updateData($id, $data)
+  {
+      $this->db->where('id_transportasi', $id);
+      return $this->db->update('transportasi', $data);
+  }
+  
   // ------------------------------------------------------------------------
 
 }
