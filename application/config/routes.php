@@ -59,6 +59,7 @@ $route['admin/penumpang'] = 'Penumpang_Controller/index';
 $route['pesan-tiket'] = 'PesanTiket/index';
 $route['admin/penumpang/delete'] = 'Penumpang_Controller/delete';
 
+
 // $route['admin/penumpang/update/(:num)'] = 'Penumpang_Controller/update/$1';
 
 // AUTH ADMIN
