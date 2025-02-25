@@ -24,6 +24,9 @@ class Dashboard_Controller extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+		if (!$this->user) {
+			redirect('auth');
+		}
   }
 
   public function index()
