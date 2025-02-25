@@ -41,7 +41,7 @@ class Penumpang_model extends CI_Model {
     'telepon' => $this->input->post('no_telepon'),
     'alamat_penumpang' => $this->input->post('alamat'),
     'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-    'password' => $this->input->post('password')
+    'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
   ];
   $this->db->insert('penumpang', $form_data);
  }
