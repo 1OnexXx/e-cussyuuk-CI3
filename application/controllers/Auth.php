@@ -27,24 +27,35 @@ class Auth extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
-		$user = $this->db->get_where('penumpang', ['username' => $username])->row();
+		if ($this->db->get_where('penumpang', ['username' => $username])->row()) {
+			$user = $this->db->get_where('penumpang', ['username' => $username])->row();
+			$role = 'penumpang';
 
-		if ($user) {
+		} else if ($user = $this->db->get_where('petugas', ['username' => $username])->row()) {
+			$user = $this->db->get_where('petugas', ['username' => $username])->row();
+			$role = 'petugas';
+		} else {
+			$this->session->set_flashdata('error_username', 'Pengguna tidak ditemukan');
+			redirect('auth');
+		}
 
 			if (password_verify($password, $user->password)) {
 
 				$this->session->set_userdata(['user' => $user]);
-				redirect(base_url());
+
+				if ($role == 'penumpang') {
+					redirect(base_url());
+				} else {
+					redirect('admin');
+				}
+
+				
 
 			} else {
 				$this->session->set_flashdata('error_password', 'Password anda salah!');
 				redirect('auth');
 			}
 
-		} else {
-			$this->session->set_flashdata('error_username', 'Pengguna tidak ditemukan');
-			redirect('auth');
-		}
 	}
 
 	public function register()

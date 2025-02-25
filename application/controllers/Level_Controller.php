@@ -24,6 +24,14 @@ class Level_Controller extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+		// untuk user nerobos admin
+		if (!$this->user) {
+			redirect('auth');
+		}
+		if (empty($this->user->nama_petugas)) {
+			show_404();
+		}
+		// end user nerobos admin5y66h6
     $this->load->model('Level_model');
   }
 
