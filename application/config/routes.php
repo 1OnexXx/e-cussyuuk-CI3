@@ -56,6 +56,7 @@ $route['admin/Penumpang_Controller/update/(:num)'] = 'Penumpang_Controller/updat
 $route['admin/penumpang'] = 'Penumpang_Controller/index';
 $route['admin/penumpang/delete'] = 'Penumpang_Controller/delete';
 
+
 // $route['admin/penumpang/update/(:num)'] = 'Penumpang_Controller/update/$1';
 
 
