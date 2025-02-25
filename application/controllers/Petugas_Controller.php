@@ -12,10 +12,10 @@ class Petugas_Controller extends CI_Controller {
 
     public function index() {
         $data['petugas'] = $this->Petugas_model->get_all();
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/header', $data);
+		$this->load->view('template/sidebar', $data);
+		$this->load->view('template/header', $data);
         $this->load->view('admin/petugas_level/petugasindex', $data);
-        $this->load->view('template/footer', $data);
+		$this->load->view('template/footer', $data);
     }
 
     public function add() {
@@ -32,28 +32,20 @@ class Petugas_Controller extends CI_Controller {
             $this->load->view('admin/petugas_level/petugastambah', $data);
             $this->load->view('template/footer');
         } else {
-            // Konfigurasi upload photo_petugas
-            // Cek apakah ada file yang diunggah
-if (isset($_FILES['photo_petugas']) && $_FILES['photo_petugas']['name'] != '') {
-    $config['upload_path']   = 'uploads/petugas/';
-    $config['allowed_types'] = 'jpg|jpeg|png';
-    $config['max_size']      = 2048;
-    $config['file_name']     = time() . '-' . $_FILES['photo_petugas']['name'];
-    echo '<pre>';
-    print_r($_FILES);
-    echo '</pre>';
-    exit;
-    
-    $this->upload->initialize($config);
 
-    if ($this->upload->do_upload('photo_petugas')) {
-        $photo_petugas = $this->upload->data('file_name');
-    } else {
-        $photo_petugas = 'default.jpg'; // Jika gagal, gunakan default
-    }
-} else {
-    $photo_petugas = 'default.jpg'; // Jika tidak ada file yang diunggah, gunakan default
-}
+			$config['upload_path'] = FCPATH . 'assets/uploads/petugas/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = 30000; // Batas ukuran file (da lam KB)
+			$this->load->library('upload');
+			$this->upload->initialize($config);
+
+			// Proses upload
+			if ($this->upload->do_upload('foto')) {
+				$nama_foto = $this->upload->data('file_name');
+			} else {
+				echo $this->upload->display_errors();
+			}
+
 
     
             $insert_data = [
@@ -61,7 +53,7 @@ if (isset($_FILES['photo_petugas']) && $_FILES['photo_petugas']['name'] != '') {
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'nama_petugas' => $this->input->post('nama_petugas'),
                 'id_level' => $this->input->post('id_level'),
-                'photo_petugas' => $photo_petugas // Pastikan variabel benar
+                'photo_petugas' => $nama_foto // Pastikan variabel benar
             ];
             $this->Petugas_model->create($insert_data);
             redirect('Petugas_Controller');

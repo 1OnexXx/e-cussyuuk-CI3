@@ -8,16 +8,9 @@
         return $this->db->get()->result_array();
     }
 
-    public function create($photo_petugas)
+    public function create($insert_data)
     {
-        $data = [
-            'username' => $this->input->post('username'),
-            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-            'nama_petugas' => $this->input->post('nama_petugas'),
-            'id_level' => $this->input->post('id_level'),
-            'photo_petugas' => $photo_petugas
-        ];
-        return $this->db->insert('petugas', $data);
+        return $this->db->insert('petugas', $insert_data);
     }
 
     public function read_by_id($id)

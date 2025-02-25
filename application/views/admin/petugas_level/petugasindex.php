@@ -24,7 +24,7 @@
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td>
-                                            <img src="<?= base_url('uploads/petugas/' . $p['photo_petugas']) ?>" width="50" height="50" style="border-radius: 50%;">
+                                            <img src="<?= base_url('assets/uploads/petugas/' . $p['photo_petugas']) ?>" width="50" height="50" style="border-radius: 50%;">
                                         </td>
                                         <td><?= $p['username'] ?></td>
                                         <td><?= $p['nama_petugas'] ?></td>

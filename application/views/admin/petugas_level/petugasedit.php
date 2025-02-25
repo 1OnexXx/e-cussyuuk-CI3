@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Foto Saat Ini</label><br>
-                                <img src="<?= base_url('uploads/petugas/' . $petugas['photo_petugas']) ?>" width="100" alt="Foto Petugas">
+                                <img src="<?= base_url('assets/uploads/petugas/' . $petugas['photo_petugas']) ?>" width="100" alt="Foto Petugas">
                             </div>
                             <div class="form-group">
                                 <label for="foto">Ganti Foto</label>
