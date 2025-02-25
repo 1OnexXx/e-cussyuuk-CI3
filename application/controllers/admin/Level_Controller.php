@@ -57,7 +57,7 @@ class Level_Controller extends CI_Controller
       $this->load->view('template/footer');
     } else {
       $this->Level_model->create();
-      redirect('Level_Controller');
+      redirect('admin/Level_Controller');
     }
   }
 
@@ -88,7 +88,7 @@ class Level_Controller extends CI_Controller
     $this->Level_model->update($id, $data);
 
     // Redirect ke halaman yang sesuai setelah update
-    redirect('Level_Controller');
+    redirect('admin/Level_Controller');
   }
 
   public function delete() {
@@ -98,7 +98,7 @@ class Level_Controller extends CI_Controller
     // Cek apakah ID valid
     if (!$id) {
         $this->session->set_flashdata('error', 'ID Level tidak ditemukan.');
-        redirect('Level_Controller');
+        redirect('admin/Level_Controller');
         return;
     }
 
@@ -112,7 +112,7 @@ class Level_Controller extends CI_Controller
     }
 
     // Redirect kembali ke daftar Level
-    redirect('Level_Controller');
+    redirect('admin/Level_Controller');
 }
 
 }

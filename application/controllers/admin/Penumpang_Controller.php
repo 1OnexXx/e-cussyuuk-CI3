@@ -64,7 +64,7 @@ class Penumpang_Controller extends CI_Controller
       $this->load->view('template/footer');
     } else {
       $this->Penumpang_model->create();
-      redirect('penumpang_controller');
+      redirect('admin/penumpang_controller');
     }
   }
 

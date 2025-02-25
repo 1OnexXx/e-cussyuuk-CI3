@@ -28,7 +28,7 @@
                     <h4 class="card-title">Data Master Level</h4>
                     <div class="card-header d-flex justify-content-between align-items-center">
                         
-                        <a href="<?= base_url('Level_Controller/add') ?>" class="btn btn-primary">Add</a>
+                        <a href="<?= base_url('admin/Level_Controller/add') ?>" class="btn btn-primary">Add</a>
                     </div>
 
 
@@ -59,9 +59,9 @@
                                             <td><?= $lv['nama_level']; ?></td>
                                            
                                             <td class="d-flex justify-content-start">
-                                                <a href="<?= base_url('Level_Controller/edit/' . $lv['id_level']) ?>"
+                                                <a href="<?= base_url('admin/Level_Controller/edit/' . $lv['id_level']) ?>"
                                                     class="btn btn-primary me-2">Edit</a>
-                                                <form action="<?= base_url('Level_Controller/delete') ?>"
+                                                <form action="<?= base_url('admin/Level_Controller/delete') ?>"
                                                     method="POST"
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus level ini?');">
                                                     <input type="hidden" name="id_level"

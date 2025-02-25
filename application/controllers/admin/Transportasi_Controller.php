@@ -68,7 +68,7 @@ public function addDataType()
     if ($this->form_validation->run() == FALSE) {
         // Jika validasi gagal, kembali ke form dengan pesan error
         $this->session->set_flashdata('error', validation_errors());
-        redirect('index.php/Transportasi_Controller/index');
+        redirect('admin/Transportasi_Controller/index');
     } else {
         // Data yang akan dimasukkan ke database
         $data = [
@@ -84,7 +84,7 @@ public function addDataType()
         }
 
         // Redirect ke halaman utama
-        redirect('index.php/Transportasi_Controller/index');
+        redirect('admin/Transportasi_Controller/index');
     }
 }
 
@@ -100,7 +100,7 @@ public function deleteDataType($id)
         $this->session->set_flashdata('error', 'Gagal menghapus data.');
     }
 
-    redirect('index.php/Transportasi_Controller/index');
+    redirect('admin/Transportasi_Controller/index');
 }
 
 
@@ -112,7 +112,7 @@ public function editDataType($id)
 
     if (!$data['type_transportasi']) {
         $this->session->set_flashdata('error', 'Data tidak ditemukan.');
-        redirect('index.php/Transportasi_Controller/index');
+        redirect('admin/Transportasi_Controller/index');
     }
 
     $this->load->view('admin/transportasi/v_editType', $data);
@@ -134,7 +134,7 @@ public function updateDataType()
         $this->session->set_flashdata('error', 'Gagal memperbarui data.');
     }
 
-    redirect('index.php/Transportasi_Controller/index');
+    redirect('admin/Transportasi_Controller/index');
 }
 
 
@@ -167,7 +167,7 @@ public function addTransportasi()
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('error', validation_errors());
-        redirect('Transportasi_Controller/addTransportasiForm');
+        redirect('admin/Transportasi_Controller/addTransportasiForm');
     } else {
         $data = [
             'kode' => $this->input->post('kode', true),
@@ -183,7 +183,7 @@ public function addTransportasi()
             $this->session->set_flashdata('error', 'Gagal menambahkan data.');
         }
 
-        redirect('index.php/Transportasi_Controller/index');
+        redirect('admin/Transportasi_Controller/index');
     }
 }
 
@@ -199,7 +199,7 @@ public function deleteDataTrans($id)
         $this->session->set_flashdata('error', 'Gagal menghapus data.');
     }
 
-    redirect('index.php/Transportasi_Controller/index');
+    redirect('admin/Transportasi_Controller/index');
 }
 
 public function editTransportasiForm($id)
@@ -233,7 +233,7 @@ public function updateTransportasi()
 
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('error', validation_errors());
-        redirect('index.php/Transportasi_Controller/editTransportasiForm/' . $id);
+        redirect('admin/Transportasi_Controller/editTransportasiForm/' . $id);
     } else {
         $data = [
             'kode' => $this->input->post('kode', true),
@@ -249,7 +249,7 @@ public function updateTransportasi()
             $this->session->set_flashdata('error', 'Gagal memperbarui data.');
         }
 
-        redirect('index.php/Transportasi_Controller/index');
+        redirect('admin/Transportasi_Controller/index');
     }
 }
 

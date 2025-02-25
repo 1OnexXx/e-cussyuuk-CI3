@@ -65,6 +65,12 @@ class Pemesanan_Controller extends CI_Controller
     $this->load->view('tiket/v_tiket', $data);
 }
 
+public function export()
+{
+		$data['pemesanan'] = $this->Pemesanan_model->read();
+	$this->load->view('pemesanan/v_export', $data);
+}
+
 
 }
 

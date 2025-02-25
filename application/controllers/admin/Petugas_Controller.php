@@ -66,7 +66,7 @@ class Petugas_Controller extends CI_Controller {
                 'photo_petugas' => $nama_foto // Pastikan variabel benar
             ];
             $this->Petugas_model->create($insert_data);
-            redirect('Petugas_Controller');
+            redirect('admin/Petugas_Controller');
         }
     }
     
@@ -119,11 +119,10 @@ class Petugas_Controller extends CI_Controller {
         }
 
         $this->Petugas_model->update($id, $update_data);
-        redirect('Petugas_Controller');
+        redirect('admin/Petugas_Controller');
     }
 
-    public function delete() {
-        $id = $this->input->post('id_petugas');
+    public function delete($id) {
         if ($id) {
             // Ambil photo_petugas lama untuk dihapus
             $petugas = $this->Petugas_model->read_by_id($id);
@@ -137,7 +136,7 @@ class Petugas_Controller extends CI_Controller {
                 unlink('./uploads/petugas/' . $photo_petugas_lama);
             }
         }
-        redirect('Petugas_Controller');
+        redirect('admin/Petugas_Controller');
     }
 }
 ?>

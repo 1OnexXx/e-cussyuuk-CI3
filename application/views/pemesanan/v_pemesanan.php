@@ -22,7 +22,7 @@
                 <div class="d-grid gap-2 d-md-block">
                     <!-- print excel dan pdf -->
                         <button class="btn btn-success" id="btnExportExcel"><i class="fas fa-download text-white"></i> Excel</button>
-                        <button class="btn btn-danger" id="btnExportPDF"><i class="fas fa-download text-white"></i> PDF</button>
+                        <a href="<?= base_url('admin/pemesanan_controller/export') ?>" class="btn btn-danger" id="btnExportPDF"><i class="fas fa-download text-white"></i> PDF</a>
                 </div>
             </div>
         <div class="card shadow-sm h-50">
@@ -52,7 +52,7 @@
                                 <td><?= $row['nama_transportasi'] ?></td>
                                 <td><?= $row['kode_kursi'] ?></td>
                                 <td>
-                                    <a href="<?php echo base_url('/pemesanan_controller/detail/' . $row['id_pemesanan']) ?>" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i> Detail</a>
+                                    <a href="<?php echo base_url('admin/pemesanan_controller/detail/' . $row['id_pemesanan']) ?>" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i> Detail</a>
                                 </td> 
                             </tr>
                         <?php endforeach; ?>

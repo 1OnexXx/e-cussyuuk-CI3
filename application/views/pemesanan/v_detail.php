@@ -2,11 +2,11 @@
     <div class="container-fluid mt-4">
         <div class="card shadow-lg">
               <div class="card-header text-end">
-                <a href="<?= base_url('pemesanan/cetak/'.$detail['id_pemesanan']); ?>" class="btn btn-success"><i class="fa fa-print"></i></a>
+                <a href="<?= base_url('admin/pemesanan/cetak/'.$detail['id_pemesanan']); ?>" class="btn btn-success"><i class="fa fa-print"></i></a>
             </div>
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Detail Transaksi Tiket</h4>
-                <a href="<?php echo base_url('/pemesanan_controller/tiket/'.$detail['id_pemesanan']); ?>" class="btn btn-warning fs-6">
+                <a href="<?php echo base_url('admin/pemesanan_controller/tiket/'.$detail['id_pemesanan']); ?>" class="btn btn-warning fs-6">
                     <i class="fas fa-eye"></i> Lihat tiket
                 </a>
 

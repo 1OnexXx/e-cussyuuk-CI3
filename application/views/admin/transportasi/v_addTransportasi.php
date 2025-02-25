@@ -16,7 +16,7 @@
                         <h4 class="card-title">Transportasi</h4>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url('index.php/Transportasi_Controller/addTransportasi') ?>" method="POST">
+                        <form action="<?= base_url('admin/Transportasi_Controller/addTransportasi') ?>" method="POST">
                             <div class="mb-3">
                                 <label for="kode" class="form-label">Kode Transportasi</label>
                                 <input type="text" class="form-control" id="kode" name="kode" required>

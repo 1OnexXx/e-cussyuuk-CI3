@@ -15,7 +15,7 @@
                         <h4 class="card-title">Edit Transportasi</h4>
                     </div>
                     <div class="card-body">
-                        <form action="<?= site_url('index.php/Transportasi_Controller/updateTransportasi'); ?>" method="POST">
+                        <form action="<?= site_url('admin/Transportasi_Controller/updateTransportasi'); ?>" method="POST">
                             <input type="hidden" name="id_transportasi" value="<?= $transportasi['id_transportasi']; ?>">
 
                             <div class="mb-3">
@@ -58,7 +58,7 @@
                             <button type="submit" class="btn btn-success">
                                 <i class="fa-solid fa-save"></i> Simpan Perubahan
                             </button>
-                            <a href="<?= site_url('index.php/Transportasi_Controller/index'); ?>" class="btn btn-secondary">
+                            <a href="<?= site_url('admin/Transportasi_Controller/index'); ?>" class="btn btn-secondary">
                                 <i class="fa-solid fa-arrow-left"></i> Kembali
                             </a>
                         </form>

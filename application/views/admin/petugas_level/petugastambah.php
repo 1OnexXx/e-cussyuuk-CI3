@@ -7,7 +7,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= base_url('Petugas_Controller/add') ?>" method="POST" enctype="multipart/form-data">
+                        <form action="<?= base_url('admin/Petugas_Controller/add') ?>" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" name="username" class="form-control" required>
@@ -34,7 +34,7 @@
                                 <input type="file" name="foto" class="form-control" required accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Simpan</button>
-                            <a href="<?= base_url('Petugas_Controller') ?>" class="btn btn-secondary mt-3">Batal</a>
+                            <a href="<?= base_url('admin/Petugas_Controller') ?>" class="btn btn-secondary mt-3">Batal</a>
                         </form>
                     </div>
                 </div>

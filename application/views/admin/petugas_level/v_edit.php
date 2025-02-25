@@ -4,7 +4,7 @@
             <h3 class="fw-bold mb-3">Forms</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="<?= base_url("Level_Controller/index" . "?id_level=" . $level['id_level']) ?>">
+                    <a href="<?= base_url("admin/Level_Controller/index" . "?id_level=" . $level['id_level']) ?>">
                         <i class="icon-home"></i>
                     </a>
                 </li>

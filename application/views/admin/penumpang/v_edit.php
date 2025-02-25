@@ -4,7 +4,7 @@
             <h3 class="fw-bold mb-3">Forms</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="<?= base_url("Penumpang_Controller/index" . "?id_penumpang=" . $penumpang['id_penumpang']) ?>">
+                    <a href="<?= base_url("admin/Penumpang_Controller/index" . "?id_penumpang=" . $penumpang['id_penumpang']) ?>">
                         <i class="icon-home"></i>
                     </a>
                 </li>

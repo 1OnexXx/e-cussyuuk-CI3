@@ -15,7 +15,7 @@
                         <h4 class="card-title">Type Transportasi</h4>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url('index.php/Transportasi_Controller/addDataType') ?>" method="POST">
+                        <form action="<?= base_url('admin/Transportasi_Controller/addDataType') ?>" method="POST">
                             <div class="mb-3">
                                 <label for="nama_type" class="form-label">Nama Type</label>
                                 <input type="text" class="form-control" id="nama_type" name="nama_type" required>
