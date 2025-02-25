@@ -85,7 +85,7 @@ class Pemesanan_model extends CI_Model {
   }
 
 
-  public function getDetailPemesanan($id) {
+  public function getTiket($id) {
         $this->db->select('
           pemesanan.*, 
           penumpang.nama_penumpang, penumpang.alamat_penumpang, penumpang.tanggal_lahir, 

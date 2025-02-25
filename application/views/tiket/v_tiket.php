@@ -33,6 +33,7 @@
             color: white;
             border-top-right-radius: 10px;
             border-bottom-right-radius: 10px;
+            text-align: center;
         }
         h4 {
             margin-bottom: 10px;
@@ -40,8 +41,13 @@
         .ticket-info {
             font-size: 14px;
         }
+        
         @media print {
-            body * {
+            @page {
+                size: auto; /* Ukuran kertas akan menyesuaikan dengan tiket */
+                margin: 0; /* Menghilangkan margin bawaan printer */
+            }
+            body {
                 visibility: hidden;
             }
             .ticket, .ticket * {
@@ -51,6 +57,9 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+                width: 100%;
+                height: auto;
+                box-shadow: none;
             }
         }
     </style>
@@ -67,7 +76,7 @@
                 <p><strong>Kursi:</strong> <?= $detail['jumlah_kursi']; ?></p>
             </div>
         </div>
-        <div class="ticket-right text-center">
+        <div class="ticket-right">
             <h5>Kode Pemesanan</h5>
             <h2><?= $detail['kode_pemesanan']; ?></h2>
             <p><strong>Harga:</strong> Rp <?= number_format($detail['total_bayar']); ?></p>

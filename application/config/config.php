@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$config['base_url'] = 'http://localhost/e-ticket/';
+$config['base_url'] = 'http://localhost/e-cussyuuk-CI3/';
 
 
 /*

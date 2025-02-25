@@ -51,7 +51,7 @@ class Pemesanan_Controller extends CI_Controller
 
   public function tiket($id) {
     // // Ambil detail pemesanan
-    $data['detail'] = $this->Pemesanan_model->getDetailPemesanan($id);
+    $data['detail'] = $this->Pemesanan_model->getTiket($id);
 
     // Load view tiket
     $this->load->view('tiket/v_tiket', $data);
