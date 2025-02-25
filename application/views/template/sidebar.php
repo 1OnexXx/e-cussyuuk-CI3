@@ -102,7 +102,7 @@
                             
                         </li>
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#tables">
+                            <a data-bs-toggle="collapse" href="<?= site_url('admin/transportasi') ?>">
                                 <i class="fas fa-table"></i>
                                 <p>Transportasi</p>
                             </a>
