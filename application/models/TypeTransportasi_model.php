@@ -31,8 +31,33 @@ class TypeTransportasi_model extends CI_Model {
   // ------------------------------------------------------------------------
   public function index()
   {
-    return $this->db->get('type_transportasi')->result_array();
+    return $this->db->select('id_type_transportasi, nama_type, keterangan')
+    ->get('type_transportasi')
+    ->result_array();
   }
+
+  //untuk type transportasi
+  public function addData($data){
+    return $this->db->insert('type_transportasi',$data);
+  }
+
+  //delete type transportasi
+  public function deleteData($where, $table)
+  {
+      $this->db->where($where);
+      return $this->db->delete($table);
+  }
+  
+  public function getDataById($id)
+{
+    return $this->db->get_where('type_transportasi', ['id_type_transportasi' => $id])->row_array();
+}
+
+public function updateData($id, $data)
+{
+    $this->db->where('id_type_transportasi', $id);
+    return $this->db->update('type_transportasi', $data);
+}
 
   
 
