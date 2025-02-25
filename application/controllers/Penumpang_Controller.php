@@ -24,6 +24,14 @@ class Penumpang_Controller extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+		// untuk user nerobos admin
+		if (!$this->user) {
+			redirect('auth');
+		}
+		if (empty($this->user->nama_petugas)) {
+			show_404();
+		}
+		// end user nerobos admin
     $this->load->model('Penumpang_model');
   }
 
