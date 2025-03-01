@@ -25,10 +25,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <h4 class="card-title">Data Master Penumpang</h4>
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        
-                        <a href="<?= base_url('Penumpang_Controller/add') ?>" class="btn btn-primary">Add</a>
+                        <h4 class="card-title">Data Master Penumpang</h4>
+                        <a href="<?= base_url('admin/Penumpang_Controller/add') ?>" class="btn btn-primary">Add</a>
                     </div>
 
 

@@ -25,7 +25,7 @@
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title">type transportasi</h4>
-                    <a href="<?= base_url('index.php/Transportasi_Controller/addTypeForm'); ?>" class="btn btn-sm btn-primary">
+                    <a href="<?= base_url('admin/Transportasi_Controller/addTypeForm'); ?>" class="btn btn-sm btn-primary">
     Add Data <i class="fa-solid fa-plus"></i>
 </a>
 <a class="btn btn-sm btn-success" href="<?= base_url('index.php/Transportasi_Controller/printType')?>">
@@ -57,7 +57,7 @@
                 </td>
                 <td>
     <!-- Tombol Edit -->
-    <a href="<?= site_url('index.php/Transportasi_Controller/editDataType/' . $ttr['id_type_transportasi']); ?>" 
+    <a href="<?= site_url('admin/Transportasi_Controller/editDataType/' . $ttr['id_type_transportasi']); ?>" 
        class="btn btn-sm btn-warning">
         <i class="fa-solid fa-edit"></i> Edit
     </a>
@@ -68,6 +68,7 @@
    data-url="<?= site_url('index.php/Transportasi_Controller/deleteDataType/' . $ttr['id_type_transportasi']); ?>">
     <i class="fa-solid fa-trash"></i> Delete
 </a>
+
                 </td>
             </tr>
         <?php 
@@ -89,7 +90,7 @@
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title">transportasi</h4>
-                    <a href="<?= base_url('index.php/Transportasi_Controller/addTransportasiForm'); ?>" class="btn btn-sm btn-primary">
+                    <a href="<?= base_url('admin/Transportasi_Controller/addTransportasiForm'); ?>" class="btn btn-sm btn-primary">
                      Add Data <i class="fa-solid fa-plus"></i>
                     </a>
      
@@ -133,13 +134,13 @@
                             <td><?= $tr['nama_type'] ?></td>
                             <td><?= $tr['nama_petugas'] ?></td>
                             <td> <!-- Tombol Edit -->
-    <a href="<?= site_url('index.php/Transportasi_Controller/editTransportasiForm/' . $tr['id_transportasi']); ?>" 
+    <a href="<?= site_url('admin/Transportasi_Controller/editTransportasiForm/' . $tr['id_transportasi']); ?>" 
        class="btn btn-sm btn-warning mb-2">
         <i class="fa-solid fa-edit"></i> Edit
     </a>
 
                     <!-- Tombol Hapus -->
-                    <a href="<?= site_url('index.php/Transportasi_Controller/deleteDataTrans/' . $tr['id_transportasi']); ?>" 
+                    <a href="<?= site_url('admin/Transportasi_Controller/deleteDataTrans/' . $tr['id_transportasi']); ?>" 
            class="btn btn-sm btn-danger"
            onclick="return confirm('Yakin ingin menghapus data ini?');">
             <i class="fa-solid fa-trash"></i> Delete

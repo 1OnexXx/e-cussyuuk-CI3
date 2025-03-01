@@ -2,7 +2,7 @@
     <div class="page-inner">
         <div class="page-header">
             <h3 class="fw-bold mb-3">Daftar Petugas</h3>
-            <a href="<?= base_url('Petugas_Controller/add') ?>" class="btn btn-primary">+ Tambah Petugas</a>
+            <a href="<?= base_url('admin/Petugas_Controller/add') ?>" class="btn btn-primary">+ Tambah Petugas</a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -30,8 +30,10 @@
                                         <td><?= $p['nama_petugas'] ?></td>
                                         <td><?= $p['nama_level'] ?></td>
                                         <td>
-                                            <a href="<?= base_url('Petugas_Controller/edit/' . $p['id_petugas']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(<?= $p['id_petugas'] ?>)">Hapus</button>
+                                            <a href="<?= base_url('admin/Petugas_Controller/edit/' . $p['id_petugas']) ?>" class="btn btn-warning btn-sm">Edit</a>
+											<form action="<?= base_url('admin/petugas_controller/delete/' . $p['id_petugas']) ?>" method="post">
+												<button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(<?= $p['id_petugas'] ?>)">Hapus</button>
+											</form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -47,7 +49,7 @@
 <script>
     function confirmDelete(id) {
         if (confirm("Apakah Anda yakin ingin menghapus petugas ini?")) {
-            window.location.href = "<?= base_url('Petugas_Controller/delete/') ?>" + id;
+            window.location.href = "<?= base_url('admin/Petugas_Controller/delete/') ?>" + id;
         }
     }
 </script>

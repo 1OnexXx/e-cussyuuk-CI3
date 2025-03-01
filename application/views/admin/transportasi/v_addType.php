@@ -15,6 +15,7 @@
                         <h4 class="card-title">Type Transportasi</h4>
                     </div>
                     <div class="card-body">
+
                     <?php if ($this->session->flashdata('validation_errors')): ?>
     <div class="alert alert-danger">
         <?= $this->session->flashdata('validation_errors'); ?>

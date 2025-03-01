@@ -19,7 +19,11 @@
                         <h4 class="card-title">Edit Type Transportasi</h4>
                     </div>
                     <div class="card-body">
+<<<<<<< HEAD
                         <form id="editForm" action="<?= base_url('index.php/Transportasi_Controller/updateDataType') ?>" method="POST">
+=======
+                        <form action="<?= base_url('admin/Transportasi_Controller/updateDataType') ?>" method="POST">
+>>>>>>> 4c4cd0009e4b1e3d961037c3c832962aa358157e
                             <!-- ID Type Transportasi (Hidden) -->
                             <input type="hidden" name="id_type_transportasi" value="<?= $type_transportasi['id_type_transportasi']; ?>">
 
@@ -40,6 +44,7 @@
                             </button>
 
                             <a href="<?= base_url('index.php/Transportasi_Controller/index'); ?>" class="btn btn-secondary">
+
                                 <i class="fa-solid fa-arrow-left"></i> Kembali
                             </a>
                         </form>

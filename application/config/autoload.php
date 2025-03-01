@@ -60,6 +60,7 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array('database', 'email', 'session', 'form_validation');
 
+
 /*
 | -------------------------------------------------------------------
 |  Auto-load Drivers
@@ -133,4 +134,5 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array('Petugas_model', 'TypeTransportasi_model');
+
 

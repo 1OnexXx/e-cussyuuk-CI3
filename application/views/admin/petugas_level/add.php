@@ -4,7 +4,7 @@
               <h3 class="fw-bold mb-3">Forms</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                  <a href="<?= base_url("Level_Controller/index")?>">
+                  <a href="<?= base_url("admin/Level_Controller/index")?>">
                     <i class="icon-home"></i>
                   </a>
                 </li>
@@ -29,7 +29,7 @@
                     <div class="card-title">Form Elements</div>
                   </div>
                   <div class="card-body">
-                    <form action="<?= base_url('Level_Controller/add') ?>" method="post">
+                    <form action="<?= base_url('admin/Level_Controller/add') ?>" method="post">
                     <div class="row">
 
                     <div class="col-md-6">
