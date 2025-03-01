@@ -26,6 +26,9 @@ class Transportasi_Controller extends CI_Controller
     parent::__construct();
     $this->load->model('Transportasi_model');
     $this->load->model('TypeTransportasi_model');
+    $this->load->library('session');
+    
+
   }
 
   public function index()
@@ -47,6 +50,11 @@ class Transportasi_Controller extends CI_Controller
     $this->load->view('template/footer');
 }
 
+public function printType()
+{
+    $data['type_transportasi'] = $this->TypeTransportasi_model->index();
+    $this->load->view("admin/transportasi/v_printType",$data);
+}
 
 public function addDataType()
 {
@@ -58,14 +66,37 @@ public function addDataType()
     $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|trim');
 
     if ($this->form_validation->run() == FALSE) {
-        // Jika validasi gagal, kembali ke form dengan pesan error
-        $this->session->set_flashdata('error', validation_errors());
-        redirect('index.php/Transportasi_Controller/index');
+        // Jika validasi gagal, kembali ke halaman form dengan error
+        $this->session->set_flashdata('error', 'Harap isi semua kolom dengan benar!');
+        $this->session->set_flashdata('validation_errors', validation_errors());
+        redirect('index.php/Transportasi_Controller/addTypeForm');
     } else {
+        // Inisialisasi variabel gambar
+        $gambar = null;
+
+        // Cek apakah ada file yang diupload
+        if (!empty($_FILES['gambar']['name'])) {
+            $config['upload_path']   = './uploads/'; // Folder penyimpanan
+            $config['allowed_types'] = 'jpg|jpeg|png|gif'; // Jenis file yang diizinkan
+            $config['max_size']      = 2048; // Maksimum ukuran file (2MB)
+            $config['file_name']     = time() . '_' . $_FILES['gambar']['name']; // Nama file unik
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('gambar')) {
+                $gambar = $this->upload->data('file_name'); // Ambil nama file yang diupload
+            } else {
+                // Jika gagal upload, set flashdata error
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect('index.php/Transportasi_Controller/addTypeForm');
+            }
+        }
+
         // Data yang akan dimasukkan ke database
         $data = [
             'nama_type' => $this->input->post('nama_type', true),
             'keterangan' => $this->input->post('keterangan', true),
+            'gambar' => $gambar, // Simpan nama file gambar
         ];
 
         // Simpan data ke database melalui model
@@ -80,20 +111,21 @@ public function addDataType()
     }
 }
 
+
+
 public function deleteDataType($id)
 {
-    $this->load->model('TypeTransportasi_model');
-    
     $where = ['id_type_transportasi' => $id];
-    
+
     if ($this->TypeTransportasi_model->deleteData($where, 'type_transportasi')) {
         $this->session->set_flashdata('success', 'Data berhasil dihapus!');
     } else {
         $this->session->set_flashdata('error', 'Gagal menghapus data.');
     }
 
-    redirect('index.php/Transportasi_Controller/index');
+    redirect('index.php/Transportasi_Controller/index'); // Tidak perlu "index.php" di URL
 }
+
 
 
 
@@ -245,16 +277,10 @@ public function updateTransportasi()
     }
 }
 
-
+}
 
 
 
 
 
   
-
-}
-
-
-/* End of file Dashboard_Controller.php */
-/* Location: ./application/controllers/Dashboard_Controller.php */

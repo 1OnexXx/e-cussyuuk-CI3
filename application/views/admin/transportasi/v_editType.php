@@ -1,6 +1,8 @@
 <?php $this->load->view('template/sidebar'); ?>
 <?php $this->load->view('template/header'); ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Tambahkan SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="container">
     <div class="page-inner">
@@ -17,7 +19,7 @@
                         <h4 class="card-title">Edit Type Transportasi</h4>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url('index.php/Transportasi_Controller/updateDataType') ?>" method="POST">
+                        <form id="editForm" action="<?= base_url('index.php/Transportasi_Controller/updateDataType') ?>" method="POST">
                             <!-- ID Type Transportasi (Hidden) -->
                             <input type="hidden" name="id_type_transportasi" value="<?= $type_transportasi['id_type_transportasi']; ?>">
 
@@ -32,9 +34,11 @@
                                 <textarea class="form-control" id="keterangan" name="keterangan" rows="4" required><?= $type_transportasi['keterangan']; ?></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-success">
+                            <!-- Tombol Simpan -->
+                            <button type="button" id="btnSubmit" class="btn btn-success">
                                 <i class="fa-solid fa-save"></i> Simpan Perubahan
                             </button>
+
                             <a href="<?= base_url('index.php/Transportasi_Controller/index'); ?>" class="btn btn-secondary">
                                 <i class="fa-solid fa-arrow-left"></i> Kembali
                             </a>
@@ -45,4 +49,25 @@
         </div>
     </div>
 </div> 
+
+<!-- Script untuk SweetAlert -->
+<script>
+    document.getElementById("btnSubmit").addEventListener("click", function(event) {
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Apakah Anda yakin ingin menyimpan perubahan?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Simpan!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("editForm").submit(); // Submit form jika dikonfirmasi
+            }
+        });
+    });
+</script>
+
 <?php $this->load->view('template/footer'); ?>

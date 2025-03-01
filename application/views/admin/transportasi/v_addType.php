@@ -15,15 +15,37 @@
                         <h4 class="card-title">Type Transportasi</h4>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url('index.php/Transportasi_Controller/addDataType') ?>" method="POST">
+                    <?php if ($this->session->flashdata('validation_errors')): ?>
+    <div class="alert alert-danger">
+        <?= $this->session->flashdata('validation_errors'); ?>
+    </div>
+<?php endif; ?>
+
+
+
+                        <form action="<?= base_url('index.php/Transportasi_Controller/addDataType') ?>" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nama_type" class="form-label">Nama Type</label>
-                                <input type="text" class="form-control" id="nama_type" name="nama_type" required>
+                                <input type="text" class="form-control <?= form_error('nama_type') ? 'is-invalid' : '' ?>" id="nama_type" name="nama_type" value="<?= set_value('nama_type'); ?>" novalidate>
+                                <div class="invalid-feedback">
+                                    <?= form_error('nama_type'); ?>
+                                </div>
                             </div>
+
                             <div class="mb-3">
                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                <textarea class="form-control" id="keterangan" name="keterangan" rows="4" required></textarea>
+                                <textarea class="form-control <?= form_error('keterangan') ? 'is-invalid' : '' ?>" id="keterangan" name="keterangan" rows="4" novalidate><?= set_value('keterangan'); ?></textarea>
+                                <div class="invalid-feedback">
+                                    <?= form_error('keterangan'); ?>
+                                </div>
                             </div>
+
+                                <!-- Input Upload Gambar -->
+    <div class="mb-3">
+        <label for="gambar" class="form-label">Upload Gambar</label>
+        <input type="file" class="form-control" id="gambar" name="gambar" >
+    </div>
+
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa-solid fa-plus"></i> Tambah Data
                             </button>

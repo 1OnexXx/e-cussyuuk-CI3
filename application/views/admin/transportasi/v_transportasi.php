@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php if ($this->session->flashdata('success')): ?>
     <div class="alert alert-success"><?= $this->session->flashdata('success'); ?></div>
@@ -27,7 +28,9 @@
                     <a href="<?= base_url('index.php/Transportasi_Controller/addTypeForm'); ?>" class="btn btn-sm btn-primary">
     Add Data <i class="fa-solid fa-plus"></i>
 </a>
-
+<a class="btn btn-sm btn-success" href="<?= base_url('index.php/Transportasi_Controller/printType')?>">
+  <i class="fa fa-print"></i>
+</a>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -37,6 +40,7 @@
             <th>No</th>
             <th>Nama Type</th>
             <th>Keterangan</th>
+            <th>gambar</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -49,6 +53,9 @@
                 <td><?= $ttr['nama_type']; ?></td>
                 <td><?= $ttr['keterangan']; ?></td>
                 <td>
+                <img src="<?= base_url('uploads/' . $ttr['gambar']); ?>" alt="Gambar Transportasi" width="100">
+                </td>
+                <td>
     <!-- Tombol Edit -->
     <a href="<?= site_url('index.php/Transportasi_Controller/editDataType/' . $ttr['id_type_transportasi']); ?>" 
        class="btn btn-sm btn-warning">
@@ -56,11 +63,11 @@
     </a>
 
                     <!-- Tombol Hapus -->
-                    <a href="<?= site_url('index.php/Transportasi_Controller/deleteDataType/' . $ttr['id_type_transportasi']); ?>" 
-           class="btn btn-sm btn-danger"
-           onclick="return confirm('Yakin ingin menghapus data ini?');">
-            <i class="fa-solid fa-trash"></i> Delete
-        </a>
+                    <a href="#" 
+   class="btn btn-sm btn-danger delete-btn" 
+   data-url="<?= site_url('index.php/Transportasi_Controller/deleteDataType/' . $ttr['id_type_transportasi']); ?>">
+    <i class="fa-solid fa-trash"></i> Delete
+</a>
                 </td>
             </tr>
         <?php 
@@ -85,6 +92,7 @@
                     <a href="<?= base_url('index.php/Transportasi_Controller/addTransportasiForm'); ?>" class="btn btn-sm btn-primary">
                      Add Data <i class="fa-solid fa-plus"></i>
                     </a>
+     
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -163,3 +171,52 @@
 </div>
           </div>
         </div>
+
+
+        <script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault(); // Mencegah langsung redirect
+
+            let deleteUrl = this.getAttribute('data-url');
+
+            Swal.fire({
+                title: "Yakin ingin menghapus?",
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, Hapus!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    <?php if ($this->session->flashdata('success')): ?>
+        Swal.fire({
+            title: "Berhasil!",
+            text: "<?= $this->session->flashdata('success'); ?>",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    <?php elseif ($this->session->flashdata('error')): ?>
+        Swal.fire({
+            title: "Gagal!",
+            text: "<?= $this->session->flashdata('error'); ?>",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    <?php endif; ?>
+});
+</script>
