@@ -20,8 +20,7 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-block">
-                    <!-- print excel dan pdf -->
-                        <button class="btn btn-success" id="btnExportExcel"><i class="fas fa-download text-white"></i> Excel</button>
+					<!-- <button class="btn btn-success" id="btnExportExcel"><i class="fas fa-download text-white"></i> Excel</button> -->
                         <a href="<?= base_url('admin/pemesanan_controller/export') ?>" class="btn btn-danger" id="btnExportPDF"><i class="fas fa-download text-white"></i> PDF</a>
                 </div>
             </div>
