@@ -2,8 +2,14 @@
 class Rute_Model extends CI_Model {
     
     public function getAllRute() {
-        return $this->db->get('rute')->result_array(); 
+        $this->db->select('rute.*, transportasi.kode, transportasi.jumlah_kursi, type_transportasi.nama_type, transportasi.keterangan');
+        $this->db->from('rute');
+        $this->db->join('transportasi', 'rute.id_transportasi = transportasi.id_transportasi', 'left');
+        $this->db->join('type_transportasi', 'transportasi.id_type_transportasi = type_transportasi.id_type_transportasi', 'left');
+
+        return $this->db->get()->result_array();
     }
+
 
     public function getById($id) {
         return $this->db->get_where('rute', ['id_rute' => $id])->row_array();
