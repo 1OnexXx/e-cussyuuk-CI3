@@ -24,11 +24,13 @@ class Home_Controller extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('Home_model');
   }
 
   public function index()
   {
-    $this->load->view('user/index'); 
+    $data['flights'] = $this->Home_model->get_new_flights();
+    $this->load->view('user/index', $data); 
   }
 
 }

@@ -14,16 +14,13 @@
     <!-- Navbar -->
     <nav class="w-full bg-[#135FAB] text-white mb-20">
         <div class="p-4 flex justify-between items-center px-10">
-            <a href="#" class="text-2xl font-bold">E-cussyuuk.com</a>
+            <a href="<?= base_url() ?>" class="text-2xl font-bold">E-cussyuuk.com</a>
             <div class="space-x-6">
-                <a href="#" class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+                <a href="<?= base_url("PesanTiket") ?>" class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
                     Pesan Tiket
                 </a>
-                <a href="#" class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
+                <a href="<?= base_url("HistoryTiket") ?>" class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
                     Riwayat Pemesanan
-                </a>
-                <a href="#" class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
-                    Atraksi
                 </a>
             </div>
             <button class="bg-white text-blue-600 px-4 py-2 rounded-md">Cari Pemesanan</button>
