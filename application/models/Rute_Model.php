@@ -23,4 +23,9 @@ class Rute_Model extends CI_Model {
     {
         return $this->db->delete('rute', ['id_rute' => $id_rute]);
     }
+
+	public function getTransportasi()
+	{
+		return $this->db->get('type_transportasi')->result();
+	}
 }
