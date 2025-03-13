@@ -28,7 +28,7 @@
                     <a href="<?= base_url('admin/Transportasi_Controller/addTypeForm'); ?>" class="btn btn-sm btn-primary">
     Add Data <i class="fa-solid fa-plus"></i>
 </a>
-<a class="btn btn-sm btn-success" href="<?= base_url('index.php/Transportasi_Controller/printType')?>">
+<a class="btn btn-sm btn-success" href="<?= base_url('admin/Transportasi_Controller/printType')?>">
   <i class="fa fa-print"></i>
 </a>
                   </div>
@@ -40,7 +40,6 @@
             <th>No</th>
             <th>Nama Type</th>
             <th>Keterangan</th>
-            <th>gambar</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -53,9 +52,6 @@
                 <td><?= $ttr['nama_type']; ?></td>
                 <td><?= $ttr['keterangan']; ?></td>
                 <td>
-                <img src="<?= base_url('uploads/' . $ttr['gambar']); ?>" alt="Gambar Transportasi" width="100">
-                </td>
-                <td>
     <!-- Tombol Edit -->
     <a href="<?= site_url('admin/Transportasi_Controller/editDataType/' . $ttr['id_type_transportasi']); ?>" 
        class="btn btn-sm btn-warning">
@@ -65,7 +61,7 @@
                     <!-- Tombol Hapus -->
                     <a href="#" 
    class="btn btn-sm btn-danger delete-btn" 
-   data-url="<?= site_url('index.php/Transportasi_Controller/deleteDataType/' . $ttr['id_type_transportasi']); ?>">
+   data-url="<?= site_url('admin/Transportasi_Controller/deleteDataType/' . $ttr['id_type_transportasi']); ?>">
     <i class="fa-solid fa-trash"></i> Delete
 </a>
 

@@ -9,7 +9,7 @@ class Petugas_Controller extends CI_Controller {
 		if (!$this->user) {
 			redirect('auth');
 		}
-		if (empty($this->user->nama_petugas)) {
+		if ($this->session->userdata('user')['role'] == 'penumpang') {
 			show_404();
 		}
 		// end user nerobos admin

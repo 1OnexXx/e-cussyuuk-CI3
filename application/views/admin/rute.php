@@ -67,7 +67,7 @@
                     <h5 class="modal-title">Tambah Rute</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form action="<?= base_url('Rute_Controller/store'); ?>" method="post">
+                <form action="<?= base_url('admin/Rute_Controller/store'); ?>" method="post">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="tujuan">Tujuan</label>
@@ -105,7 +105,7 @@
                         <h5 class="modal-title">Edit Rute</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <form action="<?= base_url('Rute_Controller/update'); ?>" method="post">
+                    <form action="<?= base_url('admin/Rute_Controller/update'); ?>" method="post">
                         <input type="hidden" name="id_rute" value="<?= $r['id_rute'] ?>">
 
                         <div class="modal-body">

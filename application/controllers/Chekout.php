@@ -28,7 +28,7 @@ class Chekout extends CI_Controller
 		if (!$this->user) {
 			redirect('auth');
 		}
-		if (empty($this->user->nama_penumpang)) {
+		if ($this->session->userdata('user')['role'] == 'petugas') {
 			show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
 		}
 		// end admin nerobos user

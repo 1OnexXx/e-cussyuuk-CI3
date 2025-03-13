@@ -31,7 +31,7 @@ class TypeTransportasi_model extends CI_Model {
   // ------------------------------------------------------------------------
   public function index()
   {
-    return $this->db->select('id_type_transportasi, nama_type, keterangan, gambar')
+    return $this->db->select('id_type_transportasi, nama_type, keterangan')
     ->get('type_transportasi')
     ->result_array();
   }

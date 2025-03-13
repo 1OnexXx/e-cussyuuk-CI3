@@ -28,7 +28,7 @@ class Transportasi_Controller extends CI_Controller
 		if (!$this->user) {
 			redirect('auth');
 		}
-		if (empty($this->user->nama_petugas)) {
+		if ($this->session->userdata('user')['role'] == 'penumpang') {
 			show_404();
 		}
 		// end user nerobos admin
@@ -77,35 +77,35 @@ public function addDataType()
         // Jika validasi gagal, kembali ke halaman form dengan error
         $this->session->set_flashdata('error', 'Harap isi semua kolom dengan benar!');
         $this->session->set_flashdata('validation_errors', validation_errors());
-        redirect('index.php/Transportasi_Controller/addTypeForm');
+        redirect('/Transportasi_Controller/addTypeForm');
 
     } else {
-        // Inisialisasi variabel gambar
-        $gambar = null;
+        // // Inisialisasi variabel gambar
+        // $gambar = null;
 
-        // Cek apakah ada file yang diupload
-        if (!empty($_FILES['gambar']['name'])) {
-            $config['upload_path']   = './uploads/'; // Folder penyimpanan
-            $config['allowed_types'] = 'jpg|jpeg|png|gif'; // Jenis file yang diizinkan
-            $config['max_size']      = 2048; // Maksimum ukuran file (2MB)
-            $config['file_name']     = time() . '_' . $_FILES['gambar']['name']; // Nama file unik
+        // // Cek apakah ada file yang diupload
+        // if (!empty($_FILES['gambar']['name'])) {
+        //     $config['upload_path']   = './uploads/'; // Folder penyimpanan
+        //     $config['allowed_types'] = 'jpg|jpeg|png|gif'; // Jenis file yang diizinkan
+        //     $config['max_size']      = 2048; // Maksimum ukuran file (2MB)
+        //     $config['file_name']     = time() . '_' . $_FILES['gambar']['name']; // Nama file unik
 
-            $this->load->library('upload', $config);
+        //     $this->load->library('upload', $config);
 
-            if ($this->upload->do_upload('gambar')) {
-                $gambar = $this->upload->data('file_name'); // Ambil nama file yang diupload
-            } else {
-                // Jika gagal upload, set flashdata error
-                $this->session->set_flashdata('error', $this->upload->display_errors());
-                redirect('index.php/Transportasi_Controller/addTypeForm');
-            }
-        }
+        //     if ($this->upload->do_upload('gambar')) {
+        //         $gambar = $this->upload->data('file_name'); // Ambil nama file yang diupload
+        //     } else {
+        //         // Jika gagal upload, set flashdata error
+        //         $this->session->set_flashdata('error', $this->upload->display_errors());
+        //         redirect('admin/Transportasi_Controller/addTypeForm');
+        //     }
+        // }
 
         // Data yang akan dimasukkan ke database
         $data = [
             'nama_type' => $this->input->post('nama_type', true),
             'keterangan' => $this->input->post('keterangan', true),
-            'gambar' => $gambar, // Simpan nama file gambar
+            // 'gambar' => $gambar, // Simpan nama file gambar
         ];
 
         // Simpan data ke database melalui model
@@ -116,7 +116,7 @@ public function addDataType()
         }
 
         // Redirect ke halaman utama
-        redirect('admin/Transportasi_Controller/index');
+        redirect('admin/Transportasi_Controller');
     }
 }
 
@@ -132,7 +132,7 @@ public function deleteDataType($id)
         $this->session->set_flashdata('error', 'Gagal menghapus data.');
     }
 
-    redirect('index.php/Transportasi_Controller/index'); // Tidak perlu "index.php" di URL
+    redirect('admin/Transportasi_Controller'); // Tidak perlu "index.php" di URL
 
 }
 
@@ -233,7 +233,7 @@ public function deleteDataTrans($id)
         $this->session->set_flashdata('error', 'Gagal menghapus data.');
     }
 
-    redirect('admin/Transportasi_Controller/index');
+    redirect('admin/Transportasi_Controller');
 }
 
 public function editTransportasiForm($id)

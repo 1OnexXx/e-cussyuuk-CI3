@@ -21,7 +21,7 @@
                 </div>
                 <div class="d-grid gap-2 d-md-block">
 					<!-- <button class="btn btn-success" id="btnExportExcel"><i class="fas fa-download text-white"></i> Excel</button> -->
-                        <a href="<?= base_url('admin/pemesanan_controller/export') ?>" class="btn btn-danger" id="btnExportPDF"><i class="fas fa-download text-white"></i> PDF</a>
+                        <a href="<?= base_url('admin/pemesanan_controller/export') ?>" target="_blank" class="btn btn-danger" id="btnExportPDF"><i class="fas fa-download text-white"></i> PDF</a>
                 </div>
             </div>
         <div class="card shadow-sm h-50">

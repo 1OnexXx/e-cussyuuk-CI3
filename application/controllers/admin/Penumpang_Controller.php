@@ -28,7 +28,7 @@ class Penumpang_Controller extends CI_Controller
 		if (!$this->user) {
 			redirect('auth');
 		}
-		if (empty($this->user->nama_petugas)) {
+		if ($this->session->userdata('user')['role'] == 'penumpang') {
 			show_404();
 		}
 		// end user nerobos admin
@@ -111,7 +111,7 @@ class Penumpang_Controller extends CI_Controller
     $this->Penumpang_model->update($id, $data);
 
     // Redirect ke halaman yang sesuai setelah update
-    redirect('admin/penumpang');
+    redirect('admin/penumpang_controller');
   }
 
   public function delete() {
@@ -121,7 +121,7 @@ class Penumpang_Controller extends CI_Controller
     // Cek apakah ID valid
     if (!$id) {
         $this->session->set_flashdata('error', 'ID Penumpang tidak ditemukan.');
-        redirect('admin/penumpang');
+        redirect('admin/penumpang_controller');
         return;
     }
 
@@ -135,7 +135,7 @@ class Penumpang_Controller extends CI_Controller
     }
 
     // Redirect kembali ke daftar penumpang
-    redirect('admin/penumpang');
+    redirect('admin/penumpang_controller');
 }
 
 }

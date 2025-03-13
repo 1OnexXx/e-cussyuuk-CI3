@@ -24,7 +24,7 @@
 
 
 
-                        <form action="<?= base_url('index.php/Transportasi_Controller/addDataType') ?>" method="POST" enctype="multipart/form-data">
+                        <form action="<?= base_url('admin/Transportasi_Controller/addDataType') ?>" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nama_type" class="form-label">Nama Type</label>
                                 <input type="text" class="form-control <?= form_error('nama_type') ? 'is-invalid' : '' ?>" id="nama_type" name="nama_type" value="<?= set_value('nama_type'); ?>" novalidate>

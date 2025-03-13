@@ -39,7 +39,7 @@ class Rute_Controller extends CI_Controller
     
         if (empty($data['rute_ahir'])) {
             $this->session->set_flashdata('error', 'Rute Akhir tidak boleh kosong!');
-            redirect('Rute_Controller');
+            redirect('admin/Rute_Controller');
         }
     
         $insert = $this->Rute_Model->insert_rute($data);
@@ -49,7 +49,7 @@ class Rute_Controller extends CI_Controller
             $this->session->set_flashdata('error', 'Gagal menambahkan rute.');
         }
     
-        redirect('Rute_Controller');
+        redirect('admin/Rute_Controller');
     }
     
     
@@ -71,7 +71,7 @@ class Rute_Controller extends CI_Controller
             $this->session->set_flashdata('error', 'Gagal memperbarui rute.');
         }
     
-        redirect('Rute_Controller');
+        redirect('admin/Rute_Controller');
     }
     
 
@@ -87,7 +87,7 @@ class Rute_Controller extends CI_Controller
         $this->session->set_flashdata('error', 'Gagal menghapus data rute.');
     }
     
-    redirect('Rute_Controller'); // Redirect kembali ke halaman rute
+    redirect('admin/Rute_Controller'); // Redirect kembali ke halaman rute
 }
 
     

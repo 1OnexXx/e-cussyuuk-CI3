@@ -28,7 +28,7 @@ class Dashboard_Controller extends CI_Controller
 		if (!$this->user) {
 			redirect('auth');
 		}
-		if (empty($this->user->nama_petugas)) {
+		if ($this->session->userdata('user')['role'] == 'penumpang') {
 			show_404();
 		}
 		// end user nerobos admin
@@ -39,7 +39,7 @@ class Dashboard_Controller extends CI_Controller
 
     $this->load->view('template/sidebar');
     $this->load->view('template/header');
-    $this->load->view('admin/dashboard');
+    $this->load->view('admin/dashboard/index');
     $this->load->view('template/footer');
   }
 

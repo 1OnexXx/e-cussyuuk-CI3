@@ -53,18 +53,19 @@ $route['default_controller'] = 'Home_Controller/index';
 $route['404_override'] = '';
 
 
-$route['admin'] = 'Dashboard_Controller';
-$route['admin/Penumpang_Controller/edit/(:num)'] = 'Penumpang_Controller/edit/$1';
-$route['admin/Penumpang_Controller/update/(:num)'] = 'Penumpang_Controller/update/$1';
-$route['penumpang'] = 'Penumpang_Controller/index';
-$route['pesan-tiket'] = 'PesanTiket/index';
-$route['pemesanan'] = 'Pemesanan_Controller/index';
-$route['transportasi'] = 'Transportasi_Controller/index';
-$route['petugas'] = 'Petugas_Controller/index';
-$route['level'] = 'Level_Controller/index';
-$route['level'] = 'Level_Controller/index';
-$route['admin/penumpang/delete'] = 'Penumpang_Controller/delete';
+$route['admin'] = 'admin/Dashboard_Controller';
+// $route['admin/Penumpang_Controller/edit/(:num)'] = 'admin/Penumpang_Controller/edit/$1';
+// $route['admin/Penumpang_Controller/update/(:num)'] = 'admin/Penumpang_Controller/update/$1';
+// $route['admin/penumpang'] = 'admin/Penumpang_Controller/index';
+// $route['admin/pemesanan'] = 'admin/Pemesanan_Controller/index';
+// $route['admin/transportasi'] = 'admin/Transportasi_Controller/index';
+// $route['admin/petugas'] = 'admin/Petugas_Controller/index';
+// $route['admin/level'] = 'admin/Level_Controller/index';
+// $route['admin/level'] = 'admin/Level_Controller/index';
+// $route['admin/admin/penumpang/delete'] = 'admin/Penumpang_Controller/delete';
+// $route['admin/rute'] = 'Rute_controller';
 
+$route['pesan-tiket'] = 'PesanTiket/index';
 
 // $route['admin/penumpang/update/(:num)'] = 'Penumpang_Controller/update/$1';
 

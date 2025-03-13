@@ -29,7 +29,7 @@
                         <div class="card-title">Form Elements</div>
                     </div>
                     <div class="card-body">
-                    <form action="<?= site_url('Level_Controller/update/' . $level['id_level']) ?>" method="post">
+                    <form action="<?= site_url('admin/Level_Controller/update/' . $level['id_level']) ?>" method="post">
 
                             <div class="row">
 

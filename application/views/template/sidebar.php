@@ -81,7 +81,7 @@
                             <h4 class="text-section">Transaksi</h4>
                         </li>
                         <li class="nav-item">
-                            <a  href="<?= base_url('pemesanan') ?>">
+                            <a  href="<?= base_url('admin/pemesanan_controller') ?>">
                                 <i class="fas fa-layer-group"></i>
                                 <p>Pemesanan</p>
                             </a>
@@ -93,20 +93,20 @@
                             <h4 class="text-section">DataMaster</h4>
                         </li>
                         <li class="nav-item">
-                            <a  href="<?= base_url('penumpang') ?>">
+                            <a  href="<?= base_url('admin/penumpang_controller') ?>">
                                 <i class="fas fa-th-list"></i>
                                 <p>Penumpang</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a  href="<?= site_url('rute') ?>">
+                            <a  href="<?= site_url('admin/rute_controller') ?>">
                                 <i class="fas fa-pen-square"></i>
                                 <p>Rute & Jadwal</p>
                             </a>
                             
                         </li>
                         <li class="nav-item">
-                            <a href="<?= site_url('transportasi') ?>">
+                            <a href="<?= site_url('admin/transportasi_controller') ?>">
                                 <i class="fas fa-table"></i>
                                 <p>Transportasi</p>
                             </a>
@@ -121,12 +121,12 @@
                             <div class="collapse" id="maps">
                                 <ul class="nav nav-collapse">
                                     <li>
-                                        <a href="<?= base_url('petugas') ?>">
+                                        <a href="<?= base_url('admin/petugas_controller') ?>">
                                             <span class="sub-item">Petugas</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?= base_url('level')?>">
+                                        <a href="<?= base_url('admin/level_controller')?>">
                                             <span class="sub-item">Level</span>
                                         </a>
                                     </li>
@@ -146,56 +146,6 @@
                                 <p>Pengaturan</p>
                             </a>
                         </li>
-                       
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- End Sidebar -->
->>>>>>> da10535 (pesan tiket drop down)
-
-						</li>
-						<li class="nav-item">
-							<a href="<?= site_url('admin/transportasi_controller') ?>">
-								<i class="fas fa-table"></i>
-								<p>Transportasi</p>
-							</a>
-
-						</li>
-						<li class="nav-item">
-							<a data-bs-toggle="collapse" href="#maps">
-								<i class="fas fa-map-marker-alt"></i>
-								<p> Petugas & Level</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="maps">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="<?= base_url('admin/petugas_controller') ?>">
-											<span class="sub-item">Petugas</span>
-										</a>
-									</li>
-									<li>
-										<a href="<?= base_url('admin/level_controller') ?>">
-											<span class="sub-item">Level</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a data-bs-toggle="collapse" href="#charts">
-								<i class="far fa-chart-bar"></i>
-								<p>Laporan & Rekapitulasi</p>
-							</a>
-
-						</li>
-						<li class="nav-item">
-							<a href="../../documentation/index.html">
-								<i class="fas fa-file"></i>
-								<p>Pengaturan</p>
-							</a>
-						</li>
 
 					</ul>
 				</div>
