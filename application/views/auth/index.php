@@ -14,7 +14,7 @@
 		<div class="card shadow" style="width: 24rem;">
 			<div class="card-body p-4">
 				<h2 class="card-title text-center mb-4">Login</h2>
-				<form action="<?= base_url('auth') ?>" method="post">
+				<form action="<?= base_url('index.php/auth') ?>" method="post">
 					<div class="mb-3">
 						<label for="username" class="form-label">Username</label>
 						<input type="text" class="form-control" id="username" placeholder="Masukkan username" name="username" value="<?= set_value('username') ?>">

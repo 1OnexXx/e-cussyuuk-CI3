@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" x-data="{ tab: 'semua', pesanan: [] }">
-
+<html lang="id" x-data="{ tab: 'tertunda' }">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +13,10 @@
     <!-- Navbar -->
     <nav class="w-full bg-[#135FAB] text-white mb-20">
         <div class="p-4 flex justify-between items-center px-10">
-            <a href="<?= base_url() ?>" class="text-2xl font-bold">E-cussyuuk.com</a>
+            <a href="#" class="text-2xl font-bold">E-cussyuuk.com</a>
             <div class="space-x-6">
-                <a href="<?= base_url("PesanTiket") ?>" class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
-                    Pesan Tiket
-                </a>
-                <a href="<?= base_url("HistoryTiket") ?>" class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
-                    Riwayat Pemesanan
-                </a>
+                <a href="#" class="hover:underline">Pesan Tiket</a>
+                <a href="#" class="hover:underline">Riwayat Pemesanan</a>
             </div>
             <button class="bg-white text-blue-600 px-4 py-2 rounded-md">Cari Pemesanan</button>
         </div>
@@ -50,47 +45,36 @@
             </button>
         </div>
 
-        <!-- Input Pencarian -->
-        <div class="mt-4 flex space-x-2">
-            <input type="text" x-ref="searchInput" placeholder="Masukkan kode pesanan" class="border p-2 rounded w-full">
-            <button class="bg-[#135FAB] text-white px-4 py-2 rounded">Cari</button>
+        <!-- Daftar Pesanan -->
+        <div class="mt-6 space-y-4">
+            <?php if (!empty($pesanan)): ?>
+                <?php foreach ($pesanan as $row): ?>
+                    <?php 
+                        $status = strtolower($row['status']); // Pastikan status dalam huruf kecil
+                        $total_bayar = number_format($row['total_bayar'], 0, ',', '.'); 
+                    ?>
+                    <div x-show="tab === 'semua' || tab === '<?= $status ?>'" class="border p-4 rounded-lg shadow-lg bg-white relative">
+                        <h3 class="text-lg font-semibold">Kode: <?= $row['kode_pemesanan'] ?></h3>
+                        <p>Tujuan: <?= $row['tujuan'] ?></p>
+                        <p>Tanggal Berangkat: <?= $row['tanggal_berangkat'] ?></p>
+                        <p>Jam Cek-in: <?= $row['jam_cekin'] ?></p>
+                        <p>Jam Berangkat: <?= $row['jam_berangkat'] ?></p>
+                        <p>Total Bayar: Rp. <?= $total_bayar ?></p>
+                        <p>Status: <span class="font-bold"><?= ucfirst($status) ?></span></p>
+                        
+                        <!-- Tombol Hapus -->
+                        <form action="<?= base_url('index.php/HistoryTiket/delete/' . $row['id_pemesanan']); ?>" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?');">
+                            <button type="submit" class="mt-3 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+                                Hapus
+                            </button>
+                        </form>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-gray-500">Belum ada pesanan.</p>
+            <?php endif; ?>
         </div>
-        <p class="text-xs text-red-500 my-2">Kode E-cussyuuk diperlukan</p>
-
-        <!-- Dummy UI untuk masing-masing tab -->
-        <div class="mt-6 border p-4 rounded-lg shadow-lg bg-white">
-            <div x-show="tab === 'semua'">
-                <h2 class="text-xl font-semibold mb-4">📋 Semua Pesanan</h2>
-                <p>Menampilkan semua pesanan yang tersedia...</p>
-            </div>
-
-            <div x-show="tab === 'diterbitkan'">
-                <h2 class="text-xl font-semibold mb-4">✅ Pesanan Diterbitkan</h2>
-                <p>Pesanan yang telah diterbitkan dan siap diproses.</p>
-            </div>
-
-            <div x-show="tab === 'terkonfirmasi'">
-                <h2 class="text-xl font-semibold mb-4">🔍 Pesanan Terkonfirmasi</h2>
-                <p>Pesanan yang telah dikonfirmasi oleh sistem.</p>
-            </div>
-
-            <div x-show="tab === 'tertunda'">
-                <h2 class="text-xl font-semibold mb-4">⏳ Pesanan Tertunda</h2>
-                <p>Pesanan yang masih dalam status menunggu.</p>
-            </div>
-
-            <div x-show="tab === 'dibatalkan'">
-                <h2 class="text-xl font-semibold mb-4">❌ Pesanan Dibatalkan</h2>
-                <p>Pesanan yang telah dibatalkan dan tidak dapat diproses.</p>
-            </div>
-        </div>
-
-        <!-- Tombol untuk memfokuskan input pencarian -->
-        <button class="bg-[#135FAB] text-white px-4 py-2 mt-4 rounded" @click="tab = 'semua'; $refs.searchInput.focus();">
-            Temukan Pesanan Anda
-        </button>
     </div>
 
 </body>
-
 </html>

@@ -26,11 +26,11 @@
         <div class="relative bg-['#135FAB'] text-white p-4 flex justify-between items-center px-10 z-10">
             <a href="<?= base_url() ?>" class="text-2xl font-bold">E-cussyuuk.com</a>
             <div class="space-x-6">
-                <a href="<?= base_url("PesanTiket") ?>"
+                <a href="<?= base_url("index.php/PesanTiket") ?>"
                     class="relative text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
                     Pesan Tiket
                 </a>
-                <a href="<?= base_url("HistoryTiket") ?>"
+                <a href="<?= base_url("index.php/HistoryTiket") ?>"
                     class="relative text-white after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full">
                     Riwayat Pemesanan
                 </a>
@@ -39,7 +39,7 @@
             <?php if ($this->session->userdata('user')): ?>
                 <a href="<?= base_url("auth/logout") ?>" class="bg-red-600 text-white px-4 py-2 rounded-md">Logout</a>
             <?php else: ?>
-                <a href="<?= base_url("auth") ?>" class="bg-white text-blue-600 px-4 py-2 rounded-md">Login</a>
+                <a href="<?= base_url("index.php/auth") ?>" class="bg-white text-blue-600 px-4 py-2 rounded-md">Login</a>
             <?php endif; ?>
 
         </div>
