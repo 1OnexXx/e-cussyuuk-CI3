@@ -51,14 +51,34 @@ class Home_model extends CI_Model {
     
   }
 
-  public function search_flights($rute_awal, $rute_akhir) {
+  public function get_filtered_rute($rute_awal = null, $rute_ahir = null)
+{
+  $this->db->select('rute.*, transportasi.kode, transportasi.jumlah_kursi, type_transportasi.nama_type, transportasi.keterangan');
+  $this->db->from('rute');
+  $this->db->join('transportasi', 'rute.id_transportasi = transportasi.id_transportasi', 'left');
+  $this->db->join('type_transportasi', 'transportasi.id_type_transportasi = type_transportasi.id_type_transportasi', 'left');
+  
+  if (!empty($rute_awal)) {
+      $this->db->where('rute.rute_awal', $rute_awal);
+  }
+  if (!empty($rute_ahir)) {
+      $this->db->where('rute.rute_ahir', $rute_ahir);
+  }
+  
+  return $this->db->get()->result_array();
+  
+}
+
+
+
+
+  
+  public function ambil_rute(){
     $this->db->select('*');
-    $this->db->from('rute'); // Sesuaikan dengan nama tabel di database
-    $this->db->where('rute_awal', $rute_awal);
-    $this->db->where('rute_ahir', $rute_akhir);
+    $this->db->from('rute');
     $query = $this->db->get();
     return $query->result_array();
-}
+  }
   // ------------------------------------------------------------------------
 
 }

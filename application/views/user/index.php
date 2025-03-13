@@ -47,44 +47,57 @@
 
     <!-- Bagian Konten -->
     <form action="<?= base_url("Home_Controller/cari_penerbangan") ?>" method="GET">
-    <div class="relative z-10 flex flex-col items-center mt-32 text-center sticky h-[600px]">
-        <h2 class="text-4xl font-bold text-white">Beli Tiket Pesawat Aman Banget</h2>
-        <p class="mt-2 text-base text-white">Jangan lewatkan harga terbaik untuk perjalanan ini.</p>
+        <div class="relative z-10 flex flex-col items-center mt-32 text-center sticky h-[600px]">
+            <h2 class="text-4xl font-bold text-white">Beli Tiket Pesawat Aman Banget</h2>
+            <p class="mt-2 text-base text-white">Jangan lewatkan harga terbaik untuk perjalanan ini.</p>
 
-        <div class="bg-white shadow-lg rounded-lg p-6 w-11/12 max-w-3xl mt-6">
-            <div class="flex flex-wrap gap-4">
-                <div class="flex flex-col sm:flex-row w-full gap-4">
-                    <div class="flex flex-col w-full sm:w-1/2">
-                        <label for="awal" class="font-semibold">Rute Awal</label>
-                        <input type="text" id="awal" name="rute_awal" placeholder="Jakarta" list="kota-list-awal"
-                            class="border p-2 rounded focus:ring-2 focus:ring-blue-400">
-                        <datalist id="kota-list-awal">
-                            <option value="Jakarta">
-                            <option value="Surabaya">
-                            <option value="Bali">
-                        </datalist>
-                    </div>
-                    <div class="flex flex-col w-full sm:w-1/2">
-                        <label for="tujuan" class="font-semibold">Rute Tujuan</label>
-                        <input type="text" id="tujuan" name="rute_akhir" placeholder="Bandung" 
-                            class="border p-2 rounded focus:ring-2 focus:ring-blue-400" list="kota-list-akhir">
-                        <datalist id="kota-list-akhir">
-                            <option value="Jakarta">
-                            <option value="Surabaya">
-                            <option value="Bali">
-                        </datalist>
-                    </div>
-                </div>
+            <div class="bg-white shadow-lg rounded-lg p-6 w-11/12 max-w-3xl mt-6">
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-col sm:flex-row w-full gap-4">
+                        <!-- Input Rute Awal -->
+                        <div class="flex flex-col w-full sm:w-1/2">
+                            <label for="awal" class="font-semibold">Rute Awal</label>
+                            <input type="text" id="awal" name="rute_awal" placeholder="Jakarta" list="kota-list-awal"
+                                class="border p-2 rounded focus:ring-2 focus:ring-blue-400">
+                            <datalist id="kota-list-awal">
+                                <?php if (!empty($kota)): ?>
+                                    <?php foreach ($kota as $k): ?>
+                                        <option value="<?= htmlspecialchars($k['rute_awal']) ?>">
+                                            <?= htmlspecialchars($k['rute_awal']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </datalist>
+                        </div>
 
-                <div class="w-full text-center mt-4">
-                    <button type="submit"
-                        class="bg-blue-600 w-full text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">🔍
-                        Cari</button>
+                        <!-- Input Rute Tujuan -->
+                        <div class="flex flex-col w-full sm:w-1/2">
+                            <label for="tujuan" class="font-semibold">Rute Tujuan</label>
+                            <input type="text" id="tujuan" name="rute_ahir" placeholder="Bandung"
+                                class="border p-2 rounded focus:ring-2 focus:ring-blue-400" list="kota-list-akhir">
+                            <datalist id="kota-list-akhir">
+                                <?php if (!empty($kota)): ?>
+                                    <?php foreach ($kota as $k): ?>
+                                        <option value="<?= htmlspecialchars($k['rute_ahir']) ?>">
+                                            <?= htmlspecialchars($k['rute_ahir']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Cari -->
+                    <div class="w-full text-center mt-4">
+                        <button type="submit"
+                            class="bg-blue-600 w-full text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">🔍
+                            Cari</button>
+                    </div>
                 </div>
             </div>
+
         </div>
-    </div>
-</form>
+    </form>
 
     <div class="w-full text-black p-4 z-20 mt-20">
         <div class="w-4/5 mx-auto">
@@ -95,38 +108,42 @@
                     <p class="col-span-3 text-center text-gray-500">Tidak ada penerbangan terbaru yang tersedia.</p>
                 <?php else: ?>
                     <?php foreach ($flights as $flight): ?>
-                        <div class="relative bg-black text-white rounded-lg overflow-hidden group">
-                            <div class="overflow-hidden">
-                                <img src="<?= base_url('assets/img/download.jpeg') ?>"
-                                    alt="Penerbangan ke <?= isset($flight['tujuan']) ? htmlspecialchars($flight['tujuan']) : 'Tujuan Tidak Diketahui' ?>"
-                                    class="w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-110">
-                            </div>
-                            <div class="absolute inset-0 p-4 flex flex-col justify-between 
+                        <a href="<?= base_url('Home_Controller/cari_penerbangan' . "?rute_ahir=$flight[rute_ahir]") ?>">
+                            <div class="relative bg-black text-white rounded-lg overflow-hidden group">
+                                <div class="overflow-hidden">
+                                    <img src="<?= base_url('assets/img/download.jpeg') ?>"
+                                        alt="Penerbangan ke <?= isset($flight['tujuan']) ? htmlspecialchars($flight['tujuan']) : 'Tujuan Tidak Diketahui' ?>"
+                                        class="w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-110">
+                                </div>
+                                <div class="absolute inset-0 p-4 flex flex-col justify-between 
                             bg-gradient-to-b from-black/60 to-black/80 
                             transition-all duration-500 group-hover:from-black/30 group-hover:to-black/50">
-                                <div>
-                                    <?php if (!empty($flight['id']) && $flight['id'] !== "-"): ?>
-                                        <p class="text-sm text-gray-300">Penerbangan dari
-                                            <?= htmlspecialchars($flight['rute_awal'] ?? 'Tidak Diketahui') ?>
-                                        </p>
-                                    <?php else: ?>
-                                        <p class="text-sm text-gray-300">Penerbangan ke
-                                            <?= htmlspecialchars($flight['rute_ahir'] ?? 'Tidak Diketahui') ?>
-                                        </p>
-                                    <?php endif; ?>
-                                    <h2 class="text-xl font-bold group-hover:text-yellow-400 transition-colors duration-500">
-                                        ✈
-                                        <?= isset($flight['tujuan']) ? htmlspecialchars($flight['tujuan']) : 'Tujuan Tidak Diketahui' ?>
-                                    </h2>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-300">Mulai dari</p>
-                                    <h3 class="text-2xl font-bold group-hover:text-yellow-400 transition-colors duration-500">
-                                        <?= isset($flight['harga']) ? 'Rp ' . number_format($flight['harga'], 0, ',', '.') : 'Harga Tidak Tersedia' ?>
-                                    </h3>
+                                    <div>
+                                        <?php if (!empty($flight['id']) && $flight['id'] !== "-"): ?>
+                                            <p class="text-sm text-gray-300">Penerbangan dari
+                                                <?= htmlspecialchars($flight['rute_awal'] ?? 'Tidak Diketahui') ?>
+                                            </p>
+                                        <?php else: ?>
+                                            <p class="text-sm text-gray-300">Penerbangan ke
+                                                <?= htmlspecialchars($flight['rute_ahir'] ?? 'Tidak Diketahui') ?>
+                                            </p>
+                                        <?php endif; ?>
+                                        <h2
+                                            class="text-xl font-bold group-hover:text-yellow-400 transition-colors duration-500">
+                                            ✈
+                                            <?= isset($flight['tujuan']) ? htmlspecialchars($flight['tujuan']) : 'Tujuan Tidak Diketahui' ?>
+                                        </h2>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-300">Mulai dari</p>
+                                        <h3
+                                            class="text-2xl font-bold group-hover:text-yellow-400 transition-colors duration-500">
+                                            <?= isset($flight['harga']) ? 'Rp ' . number_format($flight['harga'], 0, ',', '.') : 'Harga Tidak Tersedia' ?>
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>

@@ -20,31 +20,53 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class PesanTiket extends CI_Controller
 {
-    
+
   public function __construct()
   {
     parent::__construct();
-		// untuk admin nerobos user
-		if (!$this->user) {
-			redirect('auth');
-		}
+    // untuk admin nerobos user
+    if (!$this->user) {
+      redirect('auth');
+    }
     // admin ke user ga akan bisa
-		if ($this->session->userdata('user')['role'] == 'petugas') {
-			show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
-		}
-		// end admin nerobos user
+    if ($this->session->userdata('user')['role'] == 'petugas') {
+      show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
+    }
+    // end admin nerobos user
 
     $this->load->model('Rute_model');
   }
 
   public function index()
   {
-    $data['rute'] = $this->Rute_model->getAllRute();
-    $this->load->view('user/Pesan Tiket', $data); 
+      // Ambil data rute dari model
+      $data['rute'] = $this->Rute_model->getAllRute();
+  
+      // Pastikan session dimulai sebelum mengaksesnya
+      if ($this->session->has_userdata('rute_awal')) {
+          $this->session->unset_userdata('rute_awal');
+      }
+  
+      if ($this->session->has_userdata('rute_ahir')) {
+          $this->session->unset_userdata('rute_ahir');
+      }
+  
+      // Load view dengan data rute
+      $this->load->view('user/Pesan Tiket', $data);
   }
+  
 
-  public function order() {
+  public function order()
+  {
 
+  }
+  public function reset_session()
+  {
+    $this->session->unset_userdata('rute_awal');
+    $this->session->unset_userdata('rute_ahir');
+
+    // Redirect kembali ke halaman pemesanan tiket
+    redirect('PesanTiket');
   }
 
 }

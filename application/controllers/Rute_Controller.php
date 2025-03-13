@@ -1,16 +1,12 @@
 <?php
-<<<<<<< HEAD
-=======
 defined('BASEPATH') or exit('No direct script access allowed');
 
->>>>>>> 719c88cfe1075965fdb3b6b454fd3954407b8442
 class Rute_Controller extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Rute_Model');
-<<<<<<< HEAD
     }
 
     public function pilih($id_rute)
@@ -37,10 +33,7 @@ class Rute_Controller extends CI_Controller
         $this->load->view('detail_rute', $data);
     }
 
-}
-=======
-        
-    }
+
 
     public function index()
     {
@@ -128,4 +121,3 @@ class Rute_Controller extends CI_Controller
 
 /* End of file Dashboard_Controller.php */
 /* Location: ./application/controllers/Dashboard_Controller.php */
->>>>>>> 719c88cfe1075965fdb3b6b454fd3954407b8442
