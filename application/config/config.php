@@ -23,13 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-<<<<<<< HEAD
-
 $config['base_url'] = 'http://localhost/e-ticket/';
-
-=======
-$config['base_url'] = 'http://localhost/e-tiket/';
->>>>>>> rute_baru
 
 /*
 |--------------------------------------------------------------------------
@@ -41,11 +35,8 @@ $config['base_url'] = 'http://localhost/e-tiket/';
 | variable so that it is blank.
 |
 */
-<<<<<<< HEAD
 $config['index_page'] = '';
-=======
-$config['index_page'] = 'index.php';
->>>>>>> rute_baru
+
 
 /*
 |--------------------------------------------------------------------------
@@ -539,8 +530,5 @@ $config['rewrite_short_tags'] = FALSE;
 | Comma-separated:	'10.0.1.200,192.168.5.0/24'
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
-$config['proxy_ips'] = '';
-<<<<<<< HEAD
+
 $config['upload_path'] = './uploads/petugas/';
-=======
->>>>>>> rute_baru

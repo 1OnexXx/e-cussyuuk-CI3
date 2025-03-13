@@ -46,75 +46,45 @@
     </nav>
 
     <!-- Bagian Konten -->
-    <form action="<?= base_url("PesanTiket") ?>" method="GET">
-        <div class="relative z-10 flex flex-col items-center mt-32 text-center sticky h-[600px]">
-            <!-- Judul -->
-            <h2 class="text-4xl font-bold text-white">Beli Tiket Pesawat Aman Banget</h2>
-            <p class="mt-2 text-base text-white">Jangan lewatkan hargan terbaik untuk perjalanan ini.</p>
+    <form action="<?= base_url("Home_Controller/cari_penerbangan") ?>" method="GET">
+    <div class="relative z-10 flex flex-col items-center mt-32 text-center sticky h-[600px]">
+        <h2 class="text-4xl font-bold text-white">Beli Tiket Pesawat Aman Banget</h2>
+        <p class="mt-2 text-base text-white">Jangan lewatkan harga terbaik untuk perjalanan ini.</p>
 
-            <!-- Form Pencarian -->
-            <div class="bg-white shadow-lg rounded-lg p-6 w-11/12 max-w-3xl mt-6">
-                <div class="flex flex-wrap gap-4">
-                    <!-- Input Kota -->
-                    <div class="flex flex-col sm:flex-row w-full gap-4">
-                        <div class="flex flex-col w-full sm:w-1/2">
-                            <label for="awal" class="font-semibold">Rute Awal</label>
-                            <input type="text" id="awal" name="dari" placeholder="Jakarta"
-                                class="border p-2 rounded focus:ring-2 focus:ring-blue-400">
-                        </div>
-                        <div class="flex flex-col w-full sm:w-1/2">
-                            <label for="tujuan" class="font-semibold">Rute Tujuan</label>
-                            <input type="text" id="tujuan" name="ke" placeholder="Bandung"
-                                class="border p-2 rounded focus:ring-2 focus:ring-blue-400">
-                        </div>
+        <div class="bg-white shadow-lg rounded-lg p-6 w-11/12 max-w-3xl mt-6">
+            <div class="flex flex-wrap gap-4">
+                <div class="flex flex-col sm:flex-row w-full gap-4">
+                    <div class="flex flex-col w-full sm:w-1/2">
+                        <label for="awal" class="font-semibold">Rute Awal</label>
+                        <input type="text" id="awal" name="rute_awal" placeholder="Jakarta" list="kota-list-awal"
+                            class="border p-2 rounded focus:ring-2 focus:ring-blue-400">
+                        <datalist id="kota-list-awal">
+                            <option value="Jakarta">
+                            <option value="Surabaya">
+                            <option value="Bali">
+                        </datalist>
                     </div>
-
-
-                    <!-- Input Tanggal & Penumpang -->
-                    <div class="flex w-full gap-4">
-                        <input type="date" name="tanggal"
-                            class="border p-2 w-1/2 rounded focus:ring-2 focus:ring-blue-400">
-
-                        <div x-data="{ open: false, selected: [] }" class="relative w-full">
-                            <label class="block text-gray-700 font-medium">Pilih Penumpang:</label>
-
-                            <button type="button" @click="open = !open"
-                                class="w-full border border-gray-300 p-2 rounded flex justify-between items-center bg-white focus:ring-2 focus:ring-blue-400">
-                                <span x-text="selected.length > 0 ? selected.join(', ') : 'Pilih penumpang'"></span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-
-                            <div x-show="open" @click.away="open = false"
-                                class="absolute mt-2 w-full border border-gray-300 bg-white rounded shadow-lg z-10 p-2">
-                                <template
-                                    x-for="option in ['1 Dewasa, Ekonomi', '2 Dewasa, Ekonomi', '1 Dewasa, Bisnis', '2 Dewasa, Bisnis']">
-                                    <label class="block">
-                                        <input type="checkbox" :value="option"
-                                            @change="selected.includes(option) ? selected = selected.filter(i => i !== option) : selected.push(option)"
-                                            class="mr-2">
-                                        <span x-text="option"></span>
-                                    </label>
-                                </template>
-                            </div>
-                        </div>
+                    <div class="flex flex-col w-full sm:w-1/2">
+                        <label for="tujuan" class="font-semibold">Rute Tujuan</label>
+                        <input type="text" id="tujuan" name="rute_akhir" placeholder="Bandung" 
+                            class="border p-2 rounded focus:ring-2 focus:ring-blue-400" list="kota-list-akhir">
+                        <datalist id="kota-list-akhir">
+                            <option value="Jakarta">
+                            <option value="Surabaya">
+                            <option value="Bali">
+                        </datalist>
                     </div>
+                </div>
 
-
-                    <!-- Tombol Cari -->
-                    <div class="w-full text-center mt-4">
-                        <button type="submit"
-                            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">🔍
-                            Cari</button>
-                    </div>
+                <div class="w-full text-center mt-4">
+                    <button type="submit"
+                        class="bg-blue-600 w-full text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">🔍
+                        Cari</button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
 
     <div class="w-full text-black p-4 z-20 mt-20">
         <div class="w-4/5 mx-auto">
@@ -137,10 +107,12 @@
                                 <div>
                                     <?php if (!empty($flight['id']) && $flight['id'] !== "-"): ?>
                                         <p class="text-sm text-gray-300">Penerbangan dari
-                                            <?= htmlspecialchars($flight['rute_awal'] ?? 'Tidak Diketahui') ?></p>
+                                            <?= htmlspecialchars($flight['rute_awal'] ?? 'Tidak Diketahui') ?>
+                                        </p>
                                     <?php else: ?>
                                         <p class="text-sm text-gray-300">Penerbangan ke
-                                            <?= htmlspecialchars($flight['rute_akhir'] ?? 'Tidak Diketahui') ?></p>
+                                            <?= htmlspecialchars($flight['rute_ahir'] ?? 'Tidak Diketahui') ?>
+                                        </p>
                                     <?php endif; ?>
                                     <h2 class="text-xl font-bold group-hover:text-yellow-400 transition-colors duration-500">
                                         ✈

@@ -46,6 +46,19 @@ class Home_model extends CI_Model {
     $this->db->order_by('id_rute', 'desc');
     return $this->db->get('rute')->result_array();
   }
+
+  public function cari_penerbangan(){
+    
+  }
+
+  public function search_flights($rute_awal, $rute_akhir) {
+    $this->db->select('*');
+    $this->db->from('rute'); // Sesuaikan dengan nama tabel di database
+    $this->db->where('rute_awal', $rute_awal);
+    $this->db->where('rute_ahir', $rute_akhir);
+    $query = $this->db->get();
+    return $query->result_array();
+}
   // ------------------------------------------------------------------------
 
 }

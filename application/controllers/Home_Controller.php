@@ -33,6 +33,22 @@ class Home_Controller extends CI_Controller
     $this->load->view('user/index', $data); 
   }
 
+  public function cari_penerbangan() {
+    $rute_awal  = $this->input->get('rute_awal', true);
+    $rute_akhir = $this->input->get('rute_ahir', true);
+
+    // Pastikan Model diload
+
+    // Ambil data penerbangan berdasarkan pencarian
+    $data['flights'] = $this->Home_model->search_flights($rute_awal, $rute_akhir);
+    
+    // Kirim data ke view Pesan Tiket
+    $data['dari']  = $rute_awal;
+    $data['ke']    = $rute_akhir;
+
+    $this->load->view('user/Pesan Tiket', $data);
+}
+
 }
 
 
