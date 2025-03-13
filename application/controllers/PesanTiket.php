@@ -34,6 +34,7 @@ class PesanTiket extends CI_Controller
 		// end admin nerobos user
 
     $this->load->model('Rute_model');
+    $this->load->library('session');
   }
 
   public function index()
