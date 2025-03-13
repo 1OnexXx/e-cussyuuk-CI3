@@ -26,37 +26,43 @@ class Auth extends CI_Controller
 	{
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-
-		if ($this->db->get_where('penumpang', ['username' => $username])->row()) {
-			$user = $this->db->get_where('penumpang', ['username' => $username])->row();
-			$role = 'penumpang';
-
-		} else if ($user = $this->db->get_where('petugas', ['username' => $username])->row()) {
+	
+		// Cek di tabel 'penumpang' dulu
+		$user = $this->db->get_where('penumpang', ['username' => $username])->row();
+		$role = 'penumpang';
+	
+		// Jika tidak ditemukan, cek di tabel 'petugas'
+		if (!$user) {
 			$user = $this->db->get_where('petugas', ['username' => $username])->row();
 			$role = 'petugas';
-		} else {
+		}
+	
+		// Jika tetap tidak ditemukan, kasih error
+		if (!$user) {
 			$this->session->set_flashdata('error_username', 'Pengguna tidak ditemukan');
 			redirect('auth');
 		}
-
-			if (password_verify($password, $user->password)) {
-
-				$this->session->set_userdata(['user' => $user]);
-
-				if ($role == 'penumpang') {
-					redirect(base_url());
-				} else {
-					redirect('admin');
-				}
-
-				
-
+	
+		// Verifikasi password
+		if (password_verify($password, $user->password)) {
+			// Simpan user ke session
+			$this->session->set_userdata(['user' => [
+				'username' => $user->username,
+				'role' => $role
+			]]);
+	
+			// Redirect berdasarkan peran
+			if ($role == 'penumpang') {
+				redirect(base_url());
 			} else {
-				$this->session->set_flashdata('error_password', 'Password anda salah!');
-				redirect('auth');
+				redirect('admin');
 			}
-
+		} else {
+			$this->session->set_flashdata('error_password', 'Password anda salah!');
+			redirect('auth');
+		}
 	}
+	
 
 	public function register()
 	{
