@@ -40,7 +40,7 @@ class Auth extends CI_Controller
 		// Jika tetap tidak ditemukan, kasih error
 		if (!$user) {
 			$this->session->set_flashdata('error_username', 'Pengguna tidak ditemukan');
-			redirect('auth');
+			redirect('index.php/auth');
 		}
 	
 		// Verifikasi password
@@ -53,13 +53,13 @@ class Auth extends CI_Controller
 	
 			// Redirect berdasarkan peran
 			if ($role == 'penumpang') {
-				redirect(base_url());
+				redirect(base_url('index.php'));
 			} else {
-				redirect('admin');
+				redirect('index.php/admin');
 			}
 		} else {
 			$this->session->set_flashdata('error_password', 'Password anda salah!');
-			redirect('auth');
+			redirect('index.php/auth');
 		}
 	}
 	

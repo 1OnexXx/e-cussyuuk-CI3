@@ -34,10 +34,19 @@ class HistoryTiket extends CI_Controller
 		// end admin nerobos user
   }
 
-  public function index()
-  {
-    $this->load->view('user/Riwayat Pesan');
-  }
+  public function index() {
+    $this->load->model('RiwayatTransaksi_model'); // Load model
+    $data['pesanan'] = $this->RiwayatTransaksi_model->get_all_pesanan(); // Ambil data dari model
+    $this->load->view('user/Riwayat Pesan', $data); // Kirim data ke view
+}
+
+public function delete($id_pemesanan)
+{
+    $this->load->model('RiwayatTransaksi_model');
+    $this->RiwayatTransaksi_model->delete_pesanan($id_pemesanan);
+    $this->session->set_flashdata('success', 'Pesanan berhasil dihapus.');
+    redirect('index.php/HistoryTiket');
+}
 
 }
 
