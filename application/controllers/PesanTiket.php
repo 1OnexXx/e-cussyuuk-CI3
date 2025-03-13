@@ -25,12 +25,12 @@ class PesanTiket extends CI_Controller
   {
     parent::__construct();
 		// untuk admin nerobos user
-		if (!$this->user) {
-			redirect('auth');
-		}
-		if (empty($this->user->nama_penumpang)) {
-			show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
-		}
+		// if (!$this->user) {
+		// 	redirect('auth');
+		// }
+		// if (empty($this->user->nama_penumpang)) {
+		// 	show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
+		// }
 		// end admin nerobos user
 
     $this->load->model('Rute_model');
@@ -43,9 +43,6 @@ class PesanTiket extends CI_Controller
     $this->load->view('user/Pesan Tiket', $data); 
   }
 
-  public function order() {
-
-  }
 
 }
 

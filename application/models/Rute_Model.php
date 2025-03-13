@@ -33,4 +33,20 @@ class Rute_Model extends CI_Model {
         // Pastikan ada data yang dihapus sebelum return true
         return ($this->db->affected_rows() > 0);
     }
+
+    public function getRuteById($id_rute_array) {
+    if (empty($id_rute_array)) {
+        return [];
+    }
+
+    $this->db->select('rute.*, transportasi.kode, transportasi.jumlah_kursi, type_transportasi.nama_type, transportasi.keterangan');
+    $this->db->from('rute');
+    $this->db->join('transportasi', 'rute.id_transportasi = transportasi.id_transportasi', 'left');
+    $this->db->join('type_transportasi', 'transportasi.id_type_transportasi = type_transportasi.id_type_transportasi', 'left');
+    $this->db->where_in('rute.id_rute', $id_rute_array); // Ambil hanya yang ada di session
+
+    return $this->db->get()->result_array();
+}
+
+
 }

@@ -121,7 +121,10 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
                                     </div>
                                     <button class="text-[#135FAB] font-semibold mt-2">Lihat Detail ></button>
                                     
-                                    <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+                                    <a href="<?= base_url('chekout/add/' . $r['id_rute']); ?>" 
+                                        class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg block text-center">
+                                        Booking
+                                     </a>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +178,10 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
                                         </div>
                                         <button class="text-[#135FAB] font-semibold mt-2">Lihat Detail ></button>
 
-                                        <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+                                        <a href="<?= base_url('chekout/add/' . $r['id_rute']); ?>" 
+                                        class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg block text-center">
+                                            Booking
+                                        </a>
                                     </div>
                                 </div>
                             </div>

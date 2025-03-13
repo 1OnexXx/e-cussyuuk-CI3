@@ -121,6 +121,10 @@ class Pemesanan_model extends CI_Model {
     }
 
 
+    public function insert_pemesanan($data_pemesanan) {
+        return $this->db->insert('pemesanan', $data_pemesanan);
+    }
+
   // ------------------------------------------------------------------------
 
 }
