@@ -33,11 +33,18 @@ class PesanTiket extends CI_Controller
 			show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
 		}
 		// end admin nerobos user
+
+    $this->load->model('Rute_model');
   }
 
   public function index()
   {
-    $this->load->view('user/Pesan Tiket'); 
+    $data['rute'] = $this->Rute_model->getAllRute();
+    $this->load->view('user/Pesan Tiket', $data); 
+  }
+
+  public function order() {
+
   }
 
 }
