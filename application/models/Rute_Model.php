@@ -45,4 +45,8 @@ class Rute_Model extends CI_Model {
 }
 
 
+	public function getTransportasi()
+	{
+		return $this->db->get('type_transportasi')->result();
+	}
 }
