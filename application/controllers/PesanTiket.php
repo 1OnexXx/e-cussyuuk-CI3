@@ -31,6 +31,8 @@ class PesanTiket extends CI_Controller
 		if ($this->session->userdata('user')['role'] == 'petugas') {
 			show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
 		}
+
+		$this->load->model('Rute_model');
 		// end admin nerobos user
   }
 
