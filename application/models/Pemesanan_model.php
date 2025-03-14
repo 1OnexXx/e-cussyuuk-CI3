@@ -120,6 +120,20 @@ class Pemesanan_model extends CI_Model {
         return $this->db->get()->row_array();
     }
 
+    public function get_pesanan($id_pemesanan) {
+      $this->db->select('pemesanan.*, rute.tujuan, transportasi.keterangan, transportasi.kode, transportasi.jumlah_kursi');
+      $this->db->from('pemesanan');
+      $this->db->join('rute', 'pemesanan.id_rute = rute.id_rute', 'left');
+      $this->db->join('transportasi', 'rute.id_transportasi = transportasi.id_transportasi', 'left');
+      $this->db->where('pemesanan.id_pemesanan', $id_pemesanan);
+      $query = $this->db->get();
+
+      return $query->row_array(); // Pastikan array, bukan objek
+  }
+
+    public function insert_pemesanan($data_pemesanan) {
+        return $this->db->insert('pemesanan', $data_pemesanan);
+    }
 
   // ------------------------------------------------------------------------
 

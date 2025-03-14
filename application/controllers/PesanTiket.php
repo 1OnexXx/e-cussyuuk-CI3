@@ -20,7 +20,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class PesanTiket extends CI_Controller
 {
-    
+
   public function __construct()
   {
     parent::__construct();
@@ -36,8 +36,22 @@ class PesanTiket extends CI_Controller
 
   public function index()
   {
-    $this->load->view('user/Pesan Tiket'); 
+      // Ambil data rute dari model
+      $data['rute'] = $this->Rute_model->getAllRute();
+  
+      // Pastikan session dimulai sebelum mengaksesnya
+      if ($this->session->has_userdata('rute_awal')) {
+          $this->session->unset_userdata('rute_awal');
+      }
+  
+      if ($this->session->has_userdata('rute_ahir')) {
+          $this->session->unset_userdata('rute_ahir');
+      }
+  
+      // Load view dengan data rute
+      $this->load->view('user/Pesan Tiket', $data);
   }
+  
 
 }
 

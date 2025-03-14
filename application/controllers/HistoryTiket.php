@@ -32,6 +32,8 @@ class HistoryTiket extends CI_Controller
 			show_error('Anda tidak memiliki hak akses untuk mengakses halaman ini. Logout dan login sebagai user untuk melanjutkan, <a href="' . base_url('admin') . '">Kembali.</a>', 403, 'Akses Ditolak');
 		}
 		// end admin nerobos user
+
+		// end admin nerobos user
   }
 
   public function index()

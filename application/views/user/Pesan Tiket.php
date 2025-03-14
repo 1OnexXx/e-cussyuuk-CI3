@@ -29,6 +29,10 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
                 class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-[#135FAB] after:transition-all after:duration-300 hover:after:w-full">
                 Riwayat Pemesanan
             </a>
+            <a href="<?= base_url() ?>chekout"
+                class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-[#135FAB] after:transition-all after:duration-300 hover:after:w-full">
+                Keranjang
+            </a>
 
         </div>
         <div>
@@ -40,156 +44,288 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
     <header class="bg-[#135FAB] text-white p-6 text-center" style="background-image: url('<?= base_url('assets/img/download.jpeg') ?>'); 
             background-size: cover; 
             background-position: center;">
-        <h2 class="text-2xl font-bold"><?= htmlspecialchars($dari) ?>  (KNO) → <?= htmlspecialchars($ke) ?> (JKTA)</h2>
-        <p> <?= htmlspecialchars($tanggal) ?> | <?= htmlspecialchars($penumpang) ?> Penumpang | <?= htmlspecialchars($tipe) ?></p>
+        <h2 class="text-2xl font-bold">
+            <?= htmlspecialchars($this->session->userdata('rute_awal') ?? 'Tidak memilih') ?>
+            →
+            <?= htmlspecialchars($this->session->userdata('rute_ahir') ?? 'Tidak memilih') ?>
+        </h2>
         <div class="mt-4">
-            <button class="bg-white text-[#135FAB] px-4 py-2 mt-4 rounded">Ubah Pencarian</button>
+            <a href="<?= base_url('') ?>" class="bg-white text-[#135FAB] px-4 py-2 mt-4 rounded">Ubah Pencarian</a>
         </div>
     </header>
 
+
     <main class="container mx-auto p-4">
-        <div class="grid grid-cols-4 gap-4" x-data="{ tab: 'pesawat' }">
+        <div class="w-full" x-data="{ tab: 'kereta' }">
 
-            <aside class="col-span-1 bg-white p-4 rounded shadow">
-                <div class="flex space-x-4 border-b-2 border-gray-300 pb-2">
-                    <button @click="tab = 'pesawat'"
-                        :class="{'border-b-2 border-blue-500 font-bold': tab === 'pesawat'}"
-                        class="px-4 py-2">Pesawat</button>
-                    <button @click="tab = 'kereta'" :class="{'border-b-2 border-blue-500 font-bold': tab === 'kereta'}"
-                        class="px-4 py-2">Kereta Api</button>
-                </div>
-                <h3 class="font-bold mb-2">Filter</h3>
-                <p class="text-[#135FAB] cursor-pointer">Reset Semua</p>
-                <div x-show="tab === 'kereta'">
-                    <h4 class="font-semibold mt-2">Pemberhentian</h4>
-                    <label class="block"><input type="checkbox"> Langsung</label>
-                    <label class="block"><input type="checkbox"> 1 Berhenti</label>
-                    <label class="block"><input type="checkbox"> 2+ Pemberhentian</label>
-                </div>
+            <!-- Tab Transportasi (Full Width) -->
+            <div class="flex space-x-4 border-b-2 border-gray-300 pb-2 w-full ">
+                <button @click="tab = 'pesawat'" :class="{'border-b-2 border-blue-500 font-bold': tab === 'pesawat'}"
+                    class="px-4 py-2">Pesawat</button>
+                <button @click="tab = 'kereta'" :class="{'border-b-2 border-blue-500 font-bold': tab === 'kereta'}"
+                    class="px-4 py-2">Kereta Api</button>
+                    <button onclick="resetSession()">Reset Pencarian</button>
+            </div>
 
-                <div x-show="tab === 'pesawat'">
-                    <h4 class="font-semibold mt-2">Pemberhentian</h4>
-                    <label class="block"><input type="checkbox"> Langsung</label>
-                    <label class="block"><input type="checkbox"> 1 Berhenti</label>
-                    <label class="block"><input type="checkbox"> 100 Pemberhentian</label>
-                </div>
-            </aside>
+            <!-- <?php foreach ($rute as $r): ?>
+            <tr>
+                <td><?= $r['tujuan']; ?></td>
+                <td><?= $r['rute_awal']; ?></td>
+                <td><?= $r['rute_ahir']; ?></td>
+                <td><?= $r['harga']; ?></td>
+                <td><?= $r['kode']; ?></td>
+                <td><?= $r['jumlah_kursi']; ?></td>
+                <td><?= $r['nama_type']; ?></td>
+            </tr>
+            <?php endforeach; ?> -->
 
-            <section class="col-span-3" x-show="tab === 'kereta'">
-                <div class="flex space-x-4 mb-4">
-                    <div class="p-4 bg-[#B1D1F1] rounded text-[#135FAB] font-bold">Direkomendasikan Rp 2.444.150</div>
-                    <div class="p-4 bg-gray-200 rounded">Termurah Rp 2.444.150</div>
-                    <div class="p-4 bg-gray-200 rounded">Tercepat Rp 2.529.650</div>
-                </div>
-                <div class="bg-white p-4 rounded shadow" x-data="{ open: false }">
-                    <!-- card -->
-                    <div class="flex justify-between items-center  pb-4">
-                        <div>
-                            <span class="text-red-500 font-semibold">Ekonomi</span>
-                            <h4 class="font-bold">Lion Air</h4>
-                            <p>06.00 KNO → 08.20 CGK (PSK) | Langsung</p>
-                        </div>
-                        <div>
-                            <p class="text-[#135FAB] font-bold">Rp 1.222.075</p>
-                            <p class="text-gray-500">Jumlah Rp 2.444.150 / Org</p>
-                            <button class="bg-[#135FAB] text-white px-4 py-2 rounded w-full" @click="open = !open"
-                                x-text="open ? 'Close' : 'Pilih'">
-                            </button>
-                        </div>
-                    </div>
+            <div class="w-full mt-4">
+                <?php if ($this->session->userdata('rute_awal') && $this->session->userdata('rute_akhir')): ?>
+                    <section class="col-span-3" x-show="tab === 'kereta'">
+                        <div x-data="{ open: {} }">
+                            <?php foreach ($rute as $r): ?>
+                                <?php if ($r['nama_type'] == 'Kereta'): ?>
+                                    <div class="bg-white p-4 rounded shadow">
+                                        <!-- Card -->
+                                        <div class="flex justify-between items-center pb-4">
+                                            <div>
+                                                <span class="text-red-500 font-semibold"><?= $r['keterangan'] ?></span>
+                                                <h4 class="font-bold"><?= $r['kode']; ?></h4>
+                                                <p><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?> | <?= $r['tujuan']; ?></p>
+                                            </div>
+                                            <div>
+                                                <p class="text-[#135FAB] font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <button class="bg-[#135FAB] text-white px-4 py-2 rounded w-full"
+                                                    @click="open[<?= $r['id_rute']; ?>] = !open[<?= $r['id_rute']; ?>]"
+                                                    x-text="open[<?= $r['id_rute']; ?>] ? 'Close' : 'Pilih'">
+                                                </button>
+                                            </div>
+                                        </div>
 
-                    <!-- Detail (agar muncul di bawah) -->
-                    <div x-show="open" x-cloak x-transition.opacity.duration.300ms class="w-full bg-blue-100 p-4 mt-2">
-                        <div class="bg-white border border-[#135FAB] rounded-lg p-4 w-80 shadow-md">
-                            <div class="flex items-center text-[#135FAB]">
-                                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M21 16v1h-2v-1h2m-2-2h2v1h-2v-1M6 15h3.86L14 18v-2.5c1.58-.8 2.68-2.2 3.15-3.95l1.07-5.35c.14-.69-.1-1.42-.61-1.93C17.1 4.05 16.58 3.83 16 3.83c-.12 0-.24 0-.35.03l-3.36.72c-.68.15-1.28.53-1.72 1.07L4 13v1h2v-1l3-3 1 4H6v2m9-9.86l1.5-.32-.76 3.84c-.17.86-.67 1.6-1.36 2.07l-.61.42-.77-3.91 2-2.1z" />
-                                </svg>
-                                <h2 class="font-bold text-lg">Basic</h2>
+                                        <!-- Detail -->
+                                        <div x-show="open[<?= $r['id_rute']; ?>]" x-cloak x-transition.opacity.duration.300ms
+                                            class="w-full bg-blue-100 p-4 mt-2">
+                                            <div class="bg-white border border-[#135FAB] rounded-lg p-4 w-80 shadow-md">
+                                                <div class="flex items-center text-[#135FAB]">
+                                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M21 16v1h-2v-1h2m-2-2h2v1h-2v-1M6 15h3.86L14 18v-2.5c1.58-.8 2.68-2.2 3.15-3.95l1.07-5.35c.14-.69-.1-1.42-.61-1.93C17.1 4.05 16.58 3.83 16 3.83c-.12 0-.24 0-.35.03l-3.36.72c-.68.15-1.28.53-1.72 1.07L4 13v1h2v-1l3-3 1 4H6v2m9-9.86l1.5-.32-.76 3.84c-.17.86-.67 1.6-1.36 2.07l-.61.42-.77-3.91 2-2.1z" />
+                                                    </svg>
+                                                    <h2 class="font-bold text-lg"><?= $r['kode']; ?></h2>
+                                                </div>
+                                                <p class="text-[#135FAB] text-xl font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <p class="text-gray-500 text-sm"><?= $r['jumlah_kursi']; ?> Kursi</p>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Rute & tujuan</h3>
+                                                    <p class="text-gray-700"><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?></p>
+                                                    <p class="text-gray-700"> Tujuan : <?= $r['tujuan']; ?></p>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Transportasi</h3>
+                                                    <p class="text-green-600"><?= $r['nama_type']; ?></p>
+                                                    <p class="text-green-600"><?= $r['keterangan']; ?></p>
+                                                </div>
+                                                    ></button>
+                                                <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                      
+                                    <button class="text-[#135FAB] font-semibold mt-2">Lihat Detail ></button>
+                                    
+                                    <a href="<?= base_url('chekout/add/' . $r['id_rute']); ?>" 
+                                        class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg block text-center">
+                                        Booking
+                                     </a>
+                                </div>
                             </div>
-                            <p class="text-gray-500 text-sm">Ekonomi: KNO to HLP</p>
-                            <p class="text-[#135FAB] text-xl font-bold">Rp 1.122.517</p>
-                            <p class="text-gray-500 text-sm">Jumlah Rp 2.245.033 / Org</p>
-                            <div class="mt-2">
-                                <h3 class="font-semibold">Bagasi</h3>
-                                <p class="text-gray-700">&#128187; Bagasi Kabin 7kg</p>
-                                <p class="text-gray-700">&#128187; Bagasi Terdaftar 15kg</p>
-                            </div>
-                            <div class="mt-2">
-                                <h3 class="font-semibold">Fleksibilitas</h3>
-                                <p class="text-green-600">✔ Bisa Refund</p>
-                                <p class="text-green-600">✔ Reschedulable</p>
-                            </div>
-                            <button @click="open = !open" class="text-[#135FAB] font-semibold mt-2">Lihat Detail
-                                ></button>
-                            <div x-show="open" x-cloak x-transition.opacity.duration.300ms
-                                class="w-full bg-blue-100 p-4 mt-2">
-                                <p>Detail tambahan mengenai penerbangan...</p>
-                            </div>
-                            <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+      
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
-                    </div>
-                </div>
 
-            </section>
+                    </section>
 
-            <section class="col-span-3" x-show="tab === 'pesawat'">
-                <div class="flex space-x-4 mb-4">
-                    <div class="p-4 bg-[#B1D1F1] rounded text-[#135FAB] font-bold">Direkomendasikan Rp 2.444.150</div>
-                    <div class="p-4 bg-gray-200 rounded">Termurah Rp 2.444.150</div>
-                    <div class="p-4 bg-gray-200 rounded">Tercepat Rp 2.529.650</div>
-                </div>
-                <div class="bg-white p-4 rounded shadow" x-data="{ open: false }">
-                    <!-- card -->
-                    <div class="flex justify-between items-center pb-4">
-                        <div>
-                            <span class="text-red-500 font-semibold">Ekonomi</span>
-                            <h4 class="font-bold">Lion Air</h4>
-                            <p>06.00 KNO → 08.20 CGK (LPK) | Langsung</p>
+                    <section class="col-span-3" x-show="tab === 'pesawat'">
+                        <div x-data="{ open: {} }"> <!-- Hanya satu x-data di sini -->
+                            <?php foreach ($rute as $r): ?>
+                                <?php if ($r['nama_type'] == 'Pesawat'): ?>
+                                    <div class="bg-white p-4 rounded shadow">
+                                        <!-- Card -->
+                                        <div class="flex justify-between items-center pb-4">
+                                            <div>
+                                                <span class="text-red-500 font-semibold"><?= $r['keterangan']; ?></span>
+                                                <h4 class="font-bold"><?= $r['kode']; ?></h4>
+                                                <p><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?> | <?= $r['tujuan']; ?></p>
+                                            </div>
+                                            <div>
+                                                <p class="text-[#135FAB] font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <button class="bg-[#135FAB] text-white px-4 py-2 rounded w-full"
+                                                    @click="open[<?= $r['id_rute']; ?>] = !open[<?= $r['id_rute']; ?>]"
+                                                    x-text="open[<?= $r['id_rute']; ?>] ? 'Close' : 'Pilih'">
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Detail -->
+                                        <div x-show="open[<?= $r['id_rute']; ?>]" x-cloak x-transition.opacity.duration.300ms
+                                            class="w-full bg-blue-100 p-4 mt-2">
+                                            <div class="bg-white border border-[#135FAB] rounded-lg p-4 w-80 shadow-md">
+                                                <div class="flex items-center text-[#135FAB]">
+                                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M21 16v1h-2v-1h2m-2-2h2v1h-2v-1M6 15h3.86L14 18v-2.5c1.58-.8 2.68-2.2 3.15-3.95l1.07-5.35c.14-.69-.1-1.42-.61-1.93C17.1 4.05 16.58 3.83 16 3.83c-.12 0-.24 0-.35.03l-3.36.72c-.68.15-1.28.53-1.72 1.07L4 13v1h2v-1l3-3 1 4H6v2m9-9.86l1.5-.32-.76 3.84c-.17.86-.67 1.6-1.36 2.07l-.61.42-.77-3.91 2-2.1z" />
+                                                    </svg>
+                                                    <h2 class="font-bold text-lg"><?= $r['kode']; ?></h2>
+                                                </div>
+                                                <p class="text-[#135FAB] text-xl font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <p class="text-gray-500 text-sm"><?= $r['jumlah_kursi']; ?> Kursi</p>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Rute & Tujuan</h3>
+                                                    <p class="text-gray-700"><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?></p>
+                                                    <p class="text-gray-700">Tujuan: <?= $r['tujuan']; ?></p>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Transportasi</h3>
+                                                    <p class="text-green-600"><?= $r['nama_type']; ?></p>
+                                                    <p class="text-green-600"><?= $r['keterangan']; ?></p>
+                                                </div>
+                                                <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
-                        <div>
-                            <p class="text-[#135FAB] font-bold">Rp 1.222.075</p>
-                            <p class="text-gray-500">Jumlah Rp 2.444.150 / Org</p>
-                            <button class="bg-[#135FAB] text-white px-4 py-2 rounded w-full" @click="open = !open"
-                                x-text="open ? 'Close' : 'Pilih'">
-                            </button>
+                    </section>
+                <?php else: ?>
+                    <section class="col-span-3" x-show="tab === 'kereta'">
+                        <div x-data="{ open: {} }">
+                            <?php foreach ($rute as $r): ?>
+                                <?php if ($r['nama_type'] == 'Kereta'): ?>
+                                    <div class="bg-white p-4 rounded shadow">
+                                        <!-- Card -->
+                                        <div class="flex justify-between items-center pb-4">
+                                            <div>
+                                                <span class="text-red-500 font-semibold"><?= $r['keterangan']; ?></span>
+                                                <h4 class="font-bold"><?= $r['kode']; ?></h4>
+                                                <p><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?> | <?= $r['tujuan']; ?></p>
+                                            </div>
+                                            <div>
+                                                <p class="text-[#135FAB] font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <button class="bg-[#135FAB] text-white px-4 py-2 rounded w-full"
+                                                    @click="open[<?= $r['id_rute']; ?>] = !open[<?= $r['id_rute']; ?>]"
+                                                    x-text="open[<?= $r['id_rute']; ?>] ? 'Close' : 'Pilih'">
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Detail -->
+                                        <div x-show="open[<?= $r['id_rute']; ?>]" x-cloak x-transition.opacity.duration.300ms
+                                            class="w-full bg-blue-100 p-4 mt-2">
+                                            <div class="bg-white border border-[#135FAB] rounded-lg p-4 w-80 shadow-md">
+                                                <div class="flex items-center text-[#135FAB]">
+                                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M21 16v1h-2v-1h2m-2-2h2v1h-2v-1M6 15h3.86L14 18v-2.5c1.58-.8 2.68-2.2 3.15-3.95l1.07-5.35c.14-.69-.1-1.42-.61-1.93C17.1 4.05 16.58 3.83 16 3.83c-.12 0-.24 0-.35.03l-3.36.72c-.68.15-1.28.53-1.72 1.07L4 13v1h2v-1l3-3 1 4H6v2m9-9.86l1.5-.32-.76 3.84c-.17.86-.67 1.6-1.36 2.07l-.61.42-.77-3.91 2-2.1z" />
+                                                    </svg>
+                                                    <h2 class="font-bold text-lg"><?= $r['kode']; ?></h2>
+                                                </div>
+                                                <p class="text-[#135FAB] text-xl font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <p class="text-gray-500 text-sm"><?= $r['jumlah_kursi']; ?> Kursi</p>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Rute & tujuan</h3>
+                                                    <p class="text-gray-700"><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?></p>
+                                                    <p class="text-gray-700"> Tujuan : <?= $r['tujuan']; ?></p>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Transportasi</h3>
+                                                    <p class="text-green-600"><?= $r['nama_type']; ?></p>
+                                                    <p class="text-green-600"><?= $r['keterangan']; ?></p>
+                                                </div>
+                                                    ></button>
+                                                <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
-                    </div>
-                    <!-- Detail (agar muncul di bawah) -->
-                    <div x-show="open" x-cloak x-transition.opacity.duration.300ms class="w-full bg-blue-100 p-4 mt-2">
-                        <div class="bg-white border border-[#135FAB] rounded-lg p-4 w-80 shadow-md">
-                            <div class="flex items-center text-[#135FAB]">
-                                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M21 16v1h-2v-1h2m-2-2h2v1h-2v-1M6 15h3.86L14 18v-2.5c1.58-.8 2.68-2.2 3.15-3.95l1.07-5.35c.14-.69-.1-1.42-.61-1.93C17.1 4.05 16.58 3.83 16 3.83c-.12 0-.24 0-.35.03l-3.36.72c-.68.15-1.28.53-1.72 1.07L4 13v1h2v-1l3-3 1 4H6v2m9-9.86l1.5-.32-.76 3.84c-.17.86-.67 1.6-1.36 2.07l-.61.42-.77-3.91 2-2.1z" />
-                                </svg>
-                                <h2 class="font-bold text-lg">Basic</h2>
-                            </div>
-                            <p class="text-gray-500 text-sm">Ekonomi: KNO to HLP</p>
-                            <p class="text-[#135FAB] text-xl font-bold">Rp 1.122.517</p>
-                            <p class="text-gray-500 text-sm">Jumlah Rp 2.245.033 / Org</p>
-                            <div class="mt-2">
-                                <h3 class="font-semibold">Bagasi</h3>
-                                <p class="text-gray-700">&#128187; Bagasi Kabin 7kg</p>
-                                <p class="text-gray-700">&#128187; Bagasi Terdaftar 15kg</p>
-                            </div>
-                            <div class="mt-2">
-                                <h3 class="font-semibold">Fleksibilitas</h3>
-                                <p class="text-green-600">✔ Bisa Refund</p>
-                                <p class="text-green-600">✔ Reschedulable</p>
-                            </div>
-                            <button @click="open = !open" class="text-[#135FAB] font-semibold mt-2">Lihat Detail
-                                ></button>
-                            <div x-show="open" x-cloak x-transition.opacity.duration.300ms
-                                class="w-full bg-blue-100 p-4 mt-2">
-                                <p>Detail tambahan mengenai penerbangan...</p>
-                            </div>
-                            <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+
+                    </section>
+
+                    <section class="col-span-3" x-show="tab === 'pesawat'">
+                        <div x-data="{ open: {} }"> <!-- Hanya satu x-data di sini -->
+                            <?php foreach ($rute as $r): ?>
+                                <?php if ($r['nama_type'] == 'Pesawat'): ?>
+                                    <div class="bg-white p-4 rounded shadow">
+                                        <!-- Card -->
+                                        <div class="flex justify-between items-center pb-4">
+                                            <div>
+                                                <span class="text-red-500 font-semibold"><?= $r['keterangan']; ?></span>
+                                                <h4 class="font-bold"><?= $r['kode']; ?></h4>
+                                                <p><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?> | <?= $r['tujuan']; ?></p>
+                                            </div>
+                                            <div>
+                                                <p class="text-[#135FAB] font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <button class="bg-[#135FAB] text-white px-4 py-2 rounded w-full"
+                                                    @click="open[<?= $r['id_rute']; ?>] = !open[<?= $r['id_rute']; ?>]"
+                                                    x-text="open[<?= $r['id_rute']; ?>] ? 'Close' : 'Pilih'">
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Detail -->
+                                        <div x-show="open[<?= $r['id_rute']; ?>]" x-cloak x-transition.opacity.duration.300ms
+                                            class="w-full bg-blue-100 p-4 mt-2">
+                                            <div class="bg-white border border-[#135FAB] rounded-lg p-4 w-80 shadow-md">
+                                                <div class="flex items-center text-[#135FAB]">
+                                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M21 16v1h-2v-1h2m-2-2h2v1h-2v-1M6 15h3.86L14 18v-2.5c1.58-.8 2.68-2.2 3.15-3.95l1.07-5.35c.14-.69-.1-1.42-.61-1.93C17.1 4.05 16.58 3.83 16 3.83c-.12 0-.24 0-.35.03l-3.36.72c-.68.15-1.28.53-1.72 1.07L4 13v1h2v-1l3-3 1 4H6v2m9-9.86l1.5-.32-.76 3.84c-.17.86-.67 1.6-1.36 2.07l-.61.42-.77-3.91 2-2.1z" />
+                                                    </svg>
+                                                    <h2 class="font-bold text-lg"><?= $r['kode']; ?></h2>
+                                                </div>
+                                                <p class="text-[#135FAB] text-xl font-bold">Rp.
+                                                    <?= number_format($r['harga'], 0, ',', '.'); ?></p>
+                                                <p class="text-gray-500 text-sm"><?= $r['jumlah_kursi']; ?> Kursi</p>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Rute & Tujuan</h3>
+                                                    <p class="text-gray-700"><?= $r['rute_awal']; ?> → <?= $r['rute_ahir']; ?></p>
+                                                    <p class="text-gray-700">Tujuan: <?= $r['tujuan']; ?></p>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <h3 class="font-semibold">Transportasi</h3>
+                                                    <p class="text-green-600"><?= $r['nama_type']; ?></p>
+                                                    <p class="text-green-600"><?= $r['keterangan']; ?></p>
+                                                </div>
+                                                <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
+                                            </div>
+                                        </div>
+
+                                        <button class="text-[#135FAB] font-semibold mt-2">Lihat Detail ></button>
+
+                                        <a href="<?= base_url('chekout/add/' . $r['id_rute']); ?>" 
+                                        class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg block text-center">
+                                            Booking
+                                        </a>
+
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </section>
+
+                <?php endif; ?>
+
+            </div>
         </div>
     </main>
 
@@ -198,5 +334,11 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 </body>
-
+<script>
+function resetSession() {
+    if (confirm("Apakah Anda yakin ingin mereset pencarian?")) {
+        window.location.href = "<?= base_url('PesanTiket/reset_session') ?>";
+    }
+}
+</script>
 </html>
