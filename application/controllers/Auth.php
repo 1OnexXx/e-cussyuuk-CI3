@@ -53,6 +53,14 @@ class Auth extends CI_Controller
 	
 			// Redirect berdasarkan peran
 			if ($role == 'penumpang') {
+								
+				$this->session->set_userdata([
+					'id_pelanggan' => $user->id_penumpang, 
+					'username' => $user->username,
+					'nama_penumpang' => $user->nama_penumpang
+				]);
+
+
 				redirect(base_url());
 			} else {
 				redirect('admin');

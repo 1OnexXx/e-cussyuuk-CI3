@@ -29,6 +29,10 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
                 class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-[#135FAB] after:transition-all after:duration-300 hover:after:w-full">
                 Riwayat Pemesanan
             </a>
+            <a href="<?= base_url() ?>chekout"
+                class="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-[#135FAB] after:transition-all after:duration-300 hover:after:w-full">
+                Keranjang
+            </a>
 
         </div>
         <div>
@@ -128,6 +132,16 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
                                             </div>
                                         </div>
                                     </div>
+                      
+                                    <button class="text-[#135FAB] font-semibold mt-2">Lihat Detail ></button>
+                                    
+                                    <a href="<?= base_url('chekout/add/' . $r['id_rute']); ?>" 
+                                        class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg block text-center">
+                                        Booking
+                                     </a>
+                                </div>
+                            </div>
+      
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
@@ -295,6 +309,14 @@ $penumpang = filter_input(INPUT_GET, 'penumpang', FILTER_SANITIZE_STRING) ?? 'Ti
                                                 <button class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg">Booking</button>
                                             </div>
                                         </div>
+
+                                        <button class="text-[#135FAB] font-semibold mt-2">Lihat Detail ></button>
+
+                                        <a href="<?= base_url('chekout/add/' . $r['id_rute']); ?>" 
+                                        class="bg-[#135FAB] text-white w-full mt-4 py-2 rounded-lg block text-center">
+                                            Booking
+                                        </a>
+
                                     </div>
                                 <?php endif; ?>
                             <?php endforeach; ?>

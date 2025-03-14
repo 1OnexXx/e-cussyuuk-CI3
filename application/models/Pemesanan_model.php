@@ -131,6 +131,10 @@ class Pemesanan_model extends CI_Model {
       return $query->row_array(); // Pastikan array, bukan objek
   }
 
+    public function insert_pemesanan($data_pemesanan) {
+        return $this->db->insert('pemesanan', $data_pemesanan);
+    }
+
   // ------------------------------------------------------------------------
 
 }

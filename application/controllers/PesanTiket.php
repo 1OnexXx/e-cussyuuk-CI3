@@ -35,6 +35,7 @@ class PesanTiket extends CI_Controller
     // end admin nerobos user
 
     $this->load->model('Rute_model');
+    $this->load->library('session');
   }
 
   public function index()
@@ -55,19 +56,6 @@ class PesanTiket extends CI_Controller
       $this->load->view('user/Pesan Tiket', $data);
   }
   
-
-  public function order()
-  {
-
-  }
-  public function reset_session()
-  {
-    $this->session->unset_userdata('rute_awal');
-    $this->session->unset_userdata('rute_ahir');
-
-    // Redirect kembali ke halaman pemesanan tiket
-    redirect('PesanTiket');
-  }
 
 }
 
