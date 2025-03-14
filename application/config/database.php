@@ -78,7 +78,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'e-tiket',
+	'database' => 'e-cussyuuk',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
