@@ -25,13 +25,9 @@ class Rute_Model extends CI_Model {
     }
 
 
-
-    public function delete_rute($id) {
-        $this->db->where('id_rute', $id);
-        $this->db->delete('rute');
-
-        // Pastikan ada data yang dihapus sebelum return true
-        return ($this->db->affected_rows() > 0);
+    public function delete_rute($id_rute)
+    {
+        return $this->db->delete('rute', ['id_rute' => $id_rute]);
     }
 
     public function getRuteById($id_rute_array) {
